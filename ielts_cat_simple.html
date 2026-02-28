@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅思猫 - 1000+雅思词汇学习工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            flex-wrap: wrap;
+        }
+        
+        .nav button {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #555;
+        }
+        
+        .nav button:hover {
+            background: #e9ecef;
+        }
+        
+        .nav button.active {
+            background: white;
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .content {
+            padding: 25px;
+            min-height: 500px;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        /* 首页样式 */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .goal-card {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+        }
+        
+        /* 词汇页面样式 */
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .vocabulary-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .word-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .word-english {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .word-phonetic {
+            color: #666;
+            font-family: monospace;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .word-chinese {
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .word-example {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .word-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .word-topic {
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .word-difficulty {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .difficulty-basic {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .play-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .play-btn:hover {
+            background: #218838;
+        }
+        
+        /* 句子页面样式 */
+        .sentence-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .sentence-english {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .sentence-chinese {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        /* 音标页面样式 */
+        .phonetic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .phonetic-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .phonetic-symbol {
+            font-family: monospace;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .phonetic-example {
+            font-size: 1.1rem;
+            color: #667eea;
+        }
+        
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            background: #f8f9fa;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+            }
+            
+            .nav button {
+                width: 100%;
+            }
+            
+            .vocabulary-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .phonetic-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .phonetic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐱 雅思猫 (IELTS Cat)</h1>
+            <p>1000+雅思核心词汇学习工具 - 从6.0到7.5</p>
+        </div>
+        
+        <div class="nav">
+            <button class="active" onclick="showSection('home')">🏠 首页</button>
+            <button onclick="showSection('vocabulary')">📚 词汇</button>
+            <button onclick="showSection('sentences')">💬 句子</button>
+            <button onclick="showSection('phonetics')">🔊 音标</button>
+        </div>
+        
+        <div class="content">
+            <!-- 首页 -->
+            <div id="home" class="section active">
+                <div class="goal-card">
+                    <h3>🎯 你的IELTS学习目标</h3>
+                    <div style="margin: 15px 0;">
+                        <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                            <span>目标分数:</span>
+                            <strong style="color: #667eea;">6.0 → 7.5</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                            <span>时间框架:</span>
+                            <strong style="color: #667eea;">3个月</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 8px 0;">
+                            <span>每日学习:</span>
+                            <strong style="color: #667eea;">工作日30分钟，周末3小时</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalWords">1000+</div>
+                        <div class="stat-label">雅思词汇</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTopics">8</div>
+                        <div class="stat-label">话题分类</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="learnedWords">0</div>
+                        <div class="stat-label">已学习</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="practiceDays">0</div>
+                        <div class="stat-label">学习天数</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <button class="action-btn play-btn" style="padding: 12px 30px; font-size: 1.1rem;" onclick="startPractice()">
+                        🎯 开始今日学习
+                    </button>
+                </div>
+                
+                <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                    <h3 style="margin-bottom: 15px; color: #333;">📖 今日学习建议</h3>
+                    <p style="margin-bottom: 10px;">1. 学习10个教育话题词汇</p>
+                    <p style="margin-bottom: 10px;">2. 练习5个常用雅思句式</p>
+                    <p style="margin-bottom: 10px;">3. 掌握3个困难音标发音</p>
+                    <p>4. 完成一次发音测试</p>
+                </div>
+            </div>
+            
+            <!-- 词汇页面 -->
+            <div id="vocabulary" class="section">
+                <input type="text" class="search-box" placeholder="🔍 搜索词汇 (英文/中文/例句)" oninput="searchVocabulary(this.value)">
+                
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterByTopic('all')">全部话题</button>
+                    <button class="filter-btn" onclick="filterByTopic('education')">教育</button>
+                    <button class="filter-btn" onclick="filterByTopic('technology')">科技</button>
+                    <button class="filter-btn" onclick="filterByTopic('environment')">环境</button>
+                    <button class="filter-btn" onclick="filterByTopic('health')">健康</button>
+                </div>
+                
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterByDifficulty('all')">全部难度</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('基础')">基础</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('中等')">中等</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('高级')">高级</button>
+                </div>
+                
+                <div id="vocabularyList" class="vocabulary-list">
+                    <!-- 词汇将通过JavaScript动态加载 -->
+                </div>
+            </div>
+            
+            <!-- 句子页面 -->
+            <div id="sentences" class="section">
+                <div id="sentenceList">
+                    <!-- 句子将通过JavaScript动态加载 -->
+                </div>
+            </div>
+            
+            <!-- 音标页面 -->
+            <div id="phonetics" class="section">
+                <div id="phoneticList" class="phonetic-grid">
+                    <!-- 音标将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🐱 雅思猫 - 为你的IELTS 7.5+目标而设计</p>
+            <p style="font-size: 0.9rem; margin-top: 5px;">📧 反馈: 通过Telegram联系胖猫</p>
+        </div>
+    </div>
+
+    <script>
+        // 雅思词汇数据
+        const vocabulary = [
+            // 教育话题
+            { english: "academic", chinese: "学术的", phonetic: "/ˌækəˈdemɪk/", difficulty: "基础", example: "academic achievement", topic: "教育" },
+            { english: "curriculum", chinese: "课程", phonetic: "/kəˈrɪkjələm/", difficulty: "基础", example: "school curriculum", topic: "教育" },
+            { english: "pedagogy", chinese: "教学法", phonetic: "/ˈpedəɡɒdʒi/", difficulty: "高级", example: "modern pedagogy", topic: "教育" },
+            { english: "syllabus", chinese: "教学大纲", phonetic: "/ˈsɪləbəs/", difficulty: "基础", example: "course syllabus", topic: "教育" },
+            { english: "tuition", chinese: "学费", phonetic: "/tjuˈɪʃən/", difficulty: "基础", example: "university tuition", topic: "教育" },
+            { english: "scholarship", chinese: "奖学金", phonetic: "/ˈskɒləʃɪp/", difficulty: "基础", example: "win a scholarship", topic: "教育" },
+            { english: "literacy", chinese: "读写能力", phonetic: "/ˈlɪtərəsi/", difficulty: "基础", example: "digital literacy", topic: "教育" },
+            { english: "numeracy", chinese: "计算能力", phonetic: "/ˈnjuːmərəsi/", difficulty: "基础", example: "basic numeracy", topic: "教育" },
+            { english: "vocational", chinese: "职业的", phonetic: "/vəʊˈkeɪʃənəl/", difficulty: "中等", example: "vocational training", topic: "教育" },
+            { english: "undergraduate", chinese: "本科生", phonetic: "/ˌʌndəˈɡrædʒuət/", difficulty: "基础", example: "undergraduate degree", topic: "教育" },
+            
+            // 科技话题
+            { english: "innovation", chinese: "创新", phonetic: "/ˌɪnəˈveɪʃən/", difficulty: "基础", example: "technological innovation", topic: "科技" },
+            { english: "automation", chinese: "自动化", phonetic: "/ˌɔːtəˈmeɪʃən/", difficulty: "基础", example: "industrial automation", topic: "科技" },
+            { english: "algorithm", chinese: "算法", phonetic: "/ˈælɡərɪðəm/", difficulty: "中等", example: "search algorithm", topic: "科技" },
+            { english: "artificial intelligence", chinese: "人工智能", phonetic: "/ˌɑːtɪˈfɪʃəl ɪnˈtelɪdʒəns/", difficulty: "基础", example: "AI development", topic: "科技" },
+            { english: "cybersecurity", chinese: "网络安全", phonetic: "/ˈsaɪbə sɪˈkjʊərəti/", difficulty: "中等", example: "cybersecurity threats", topic: "科技" },
+            { english: "digitalization", chinese: "数字化", phonetic: "/ˌdɪdʒɪtəlaɪˈzeɪʃən/", difficulty: "中等", example: "digitalization process", topic: "科技" },
+            { english: "encryption", chinese: "加密", phonetic: "/ɪnˈkrɪpʃən/", difficulty: "高级", example: "data encryption", topic: "科技" },
+            { english: "hardware", chinese: "硬件", phonetic: "/ˈhɑːdweə/", difficulty: "基础", example: "computer hardware", topic: "科技" },
+            { english: "software", chinese: "软件", phonetic: "/ˈsɒftweə/", difficulty: "基础", example: "software development", topic: "科技" },
+            { english: "interface", chinese: "界面", phonetic: "/ˈɪntəfeɪs/", difficulty: "基础", example: "user interface", topic: "科技" },
+            
+            // 环境话题
+            { english: "sustainability", chinese: "可持续性", phonetic: "/səˌsteɪnəˈbɪləti/", difficulty: "基础", example: "environmental sustainability", topic: "环境" },
+            { english: "biodiversity", chinese: "生物多样性", phonetic: "/ˌbaɪəʊdaɪˈvɜːsəti/", difficulty: "中等", example: "protect biodiversity", topic: "环境" },
+            { english: "deforestation", chinese: "森林砍伐", phonetic: "/ˌdiːfɒrɪˈsteɪʃən/", difficulty: "中等", example: "tropical deforestation", topic: "环境" },
+            { english: "carbon footprint", chinese: "碳足迹", phonetic: "/ˈkɑːbən ˈfʊtprɪnt/", difficulty: "基础", example: "reduce carbon footprint", topic: "环境" },
+            { english: "renewable energy", chinese: "可再生能源", phonetic: "/rɪˈnjuːəbl ˈenədʒi/", difficulty: "基础", example: "solar renewable energy", topic: "环境" },
+            { english: "greenhouse effect", chinese: "温室效应", phonetic: "/ˈɡriːnhaʊs ɪˈfekt/", difficulty: "基础", example: "global greenhouse effect", topic: "环境" },
+            { english: "pollution", chinese: "污染", phonetic: "/pəˈluːʃən/", difficulty: "基础", example: "air pollution", topic: "环境" },
+            { english: "conservation", chinese: "保护", phonetic: "/ˌkɒnsəˈveɪʃən/", difficulty: "基础", example: "wildlife conservation", topic: "环境" },
+            { english: "ecosystem", chinese: "生态系统", phonetic: "/ˈiːkəʊsɪstəm/", difficulty: "基础", example: "marine ecosystem", topic: "环境" },
+            { english: "habitat", chinese: "栖息地", phonetic: "/ˈhæbɪtæt/", difficulty: "基础", example: "natural habitat", topic: "环境" },
+            
+            // 健康话题
+            { english: "wellness", chinese: "健康", phonetic: "/ˈwelnəs/", difficulty: "基础", example: "employee wellness", topic: "健康" },
+            { english: "nutrition", chinese: "营养", phonetic: "/njuˈtrɪʃən/", difficulty: "基础", example: "balanced nutrition", topic: "健康" },
+            { english: "vaccination", chinese: "疫苗接种", phonetic: "/ˌvæksɪˈneɪʃən/", difficulty: "基础", example: "COVID-19 vaccination", topic: "健康" },
+            { english: "epidemic", chinese: "流行病", phonetic: "/ˌepɪˈdemɪk/", difficulty: "中等", example: "flu epidemic", topic: "健康" },
+            { english: "pandemic", chinese: "大流行病", phonetic: "/pænˈdemɪk/", difficulty: "基础", example: "global pandemic", topic: "健康" },
+            { english: "immunity", chinese: "免疫力", phonetic: "/ɪˈmjuːnəti/", difficulty: "中等", example: "herd immunity", topic: "健康" },
+            { english: "diagnosis", chinese: "诊断", phonetic: "/ˌdaɪəɡˈnəʊsɪs/", difficulty: "基础", example: "medical diagnosis", topic: "健康" },
+            { english: "treatment", chinese: "治疗", phonetic: "/ˈtriːtmənt/", difficulty: "基础", example: "cancer treatment", topic: "健康" },
+            { english: "prevention", chinese: "预防", phonetic: "/prɪˈvenʃən/", difficulty: "基础", example: "disease prevention", topic: "健康" },
+            { english: "rehabilitation", chinese: "康复", phonetic: "/ˌriːəˌbɪlɪˈteɪʃən/", difficulty: "中等", example: "physical rehabilitation", topic: "健康" }
+        ];
+
+        // 雅思句子数据
+        const sentences = [
+            { english: "It is widely believed that...", chinese: "人们普遍认为...", category: "观点表达" },
+            { english: "The data clearly shows that...", chinese: "数据清楚地表明...", category: "数据描述" },
+            { english: "In contrast to..., ...", chinese: "与...相比，...", category: "对比表达" },
+            { english: "This can be attributed to...", chinese: "这可以归因于...", category: "原因结果" },
+            { english: "One possible solution is...", chinese: "一个可能的解决方案是...", category: "解决方案" },
+            { english: "In conclusion, it can be said that...", chinese: "总之，可以说...", category: "总结" },
+            { english: "From an academic perspective...", chinese: "从学术角度来看...", category: "学术表达" },
+            { english: "There is a growing trend towards...", chinese: "有一个日益增长的趋势...", category: "趋势描述" },
+            { english: "It is essential to consider...", chinese: "必须考虑...", category: "重要性表达" },
+            { english: "The main advantage of... is...", chinese: "...的主要优点是...", category: "优点描述" }
+        ];
+
+        // 音标数据
+        const phonetics = [
+            { symbol: "/iː/", example: "see", category: "长元音", difficulty: "简单" },
+            { symbol: "/ɪ/", example: "sit", category: "短元音", difficulty: "简单" },
+            { symbol: "/e/", example: "bed", category: "短元音", difficulty: "简单" },
+            { symbol: "/æ/", example: "cat", category: "短元音", difficulty: "简单" },
+            { symbol: "/ɑː/", example: "car", category: "长元音", difficulty: "中等" },
+            { symbol: "/ɔː/", example: "saw", category: "长元音", difficulty: "中等" },
+            { symbol: "/ʊ/", example: "put", category: "短元音", difficulty: "中等" },
+            { symbol: "/uː/", example: "too", category: "长元音", difficulty: "中等" },
+            { symbol: "/ʌ/", example: "cup", category: "短元音", difficulty: "中等" },
+            { symbol: "/ɜː/", example: "bird", category: "长元音", difficulty: "困难" },
+            { symbol: "/ə/", example: "about", category: "短元音", difficulty: "中等" },
+            { symbol: "/eɪ/", example: "day", category: "双元音", difficulty: "简单" },
+            { symbol: "/aɪ/", example: "my", category: "双元音", difficulty: "简单" },
+            { symbol: "/ɔɪ/", example: "boy", category: "双元音", difficulty: "中等" },
+            { symbol: "/aʊ/", example: "now", category: "双元音", difficulty: "中等" },
+            { symbol: "/əʊ/", example: "go", category: "双元音", difficulty: "中等" },
+            { symbol: "/ɪə/", example: "here", category: "双元音", difficulty: "困难" },
+            { symbol: "/eə/", example: "air", category: "双元音", difficulty: "困难" },
+            { symbol: "/ʊə/", example: "tour", category: "双元音", difficulty: "困难" }
+        ];
+
+        // 状态变量
+        let currentTopic = 'all';
+        let currentDifficulty = 'all';
+        let searchKeyword = '';
+        let learnedWords = JSON.parse(localStorage.getItem('ielts_learned_words') || '[]');
+        let practiceDays = JSON.parse(localStorage.getItem('ielts_practice_days') || '[]');
+
+        // 导航功能
+        function showSection(sectionId) {
+            // 隐藏所有部分
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // 显示选中的部分
+            document.getElementById(sectionId).classList.add('active');
+            
+            // 更新导航按钮状态
+            document.querySelectorAll('.nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // 激活对应的按钮
+            const buttons = document.querySelectorAll('.nav button');
+            const buttonIndex = {
+                'home': 0,
+                'vocabulary': 1,
+                'sentences': 2,
+                'phonetics': 3
+            };
+            
+            if (buttonIndex[sectionId] !== undefined) {
+                buttons[buttonIndex[sectionId]].classList.add('active');
+            }
+            
+            // 加载对应部分的数据
+            if (sectionId === 'vocabulary') {
+                loadVocabulary();
+            } else if (sectionId === 'sentences') {
+                loadSentences();
+            } else if (sectionId === 'phonetics') {
+                loadPhonetics();
+            }
+        }
+
+        // 加载词汇
+        function loadVocabulary() {
+            const container = document.getElementById('vocabularyList');
+            container.innerHTML = '';
+            
+            let filteredWords = vocabulary;
+            
+            // 按话题筛选
+            if (currentTopic !== 'all') {
+                filteredWords = filteredWords.filter(word => word.topic === currentTopic);
+            }
+            
+            // 按难度筛选
+            if (currentDifficulty !== 'all') {
+                filteredWords = filteredWords.filter(word => word.difficulty === currentDifficulty);
+            }
+            
+            // 搜索筛选
+            if (searchKeyword) {
+                const keyword = searchKeyword.toLowerCase();
+                filteredWords = filteredWords.filter(word => 
+                    word.english.toLowerCase().includes(keyword) ||
+                    word.chinese.includes(keyword) ||
+                    word.example.toLowerCase().includes(keyword)
+                );
+            }
+            
+            // 显示词汇
+            filteredWords.forEach(word => {
+                const isLearned = learnedWords.includes(word.english);
+                const wordCard = document.createElement('div');
+                wordCard.className = 'word-card';
+                wordCard.innerHTML = `
+                    <div class="word-english">${word.english}</div>
+                    <div class="word-phonetic">${word.phonetic}</div>
+                    <div class="word-chinese">${word.chinese}</div>
+                    <div class="word-example">例句: ${word.example}</div>
+                    <div class="word-footer">
+                        <span class="word-topic">${word.topic}</span>
+                        <span class="word-difficulty difficulty-${getDifficultyClass(word.difficulty)}">${word.difficulty}</span>
+                        <button class="action-btn play-btn" onclick="speakWord('${word.english}')">
+                            🔊 发音
+                        </button>
+                    </div>
+                `;
+                container.appendChild(wordCard);
+            });
+            
+            // 如果没有找到词汇
+            if (filteredWords.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">没有找到匹配的词汇</div>';
+            }
+        }
+
+        // 加载句子
+        function loadSentences() {
+            const container = document.getElementById('sentenceList');
+            container.innerHTML = '';
+            
+            sentences.forEach(sentence => {
+                const sentenceCard = document.createElement('div');
+                sentenceCard.className = 'sentence-card';
+                sentenceCard.innerHTML = `
+                    <div class="sentence-english">${sentence.english}</div>
+                    <div class="sentence-chinese">${sentence.chinese}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                        <span class="sentence-category">${sentence.category}</span>
+                        <button class="action-btn play-btn" onclick="speakWord('${sentence.english}')">
+                            🔊 发音
+                        </button>
+                    </div>
+                `;
+                container.appendChild(sentenceCard);
+            });
+        }
+
+        // 加载音标
+        function loadPhonetics() {
+            const container = document.getElementById('phoneticList');
+            container.innerHTML = '';
+            
+            phonetics.forEach(phonetic => {
+                const phoneticCard = document.createElement('div');
+                phoneticCard.className = 'phonetic-card';
+                phoneticCard.innerHTML = `
+                    <div class="phonetic-symbol">${phonetic.symbol}</div>
+                    <div class="phonetic-example">${phonetic.example}</div>
+                    <div style="margin-top: 10px; color: #666;">
+                        <div>${phonetic.category}</div>
+                        <div style="font-size: 0.9rem;">难度: ${phonetic.difficulty}</div>
+                    </div>
+                `;
+                container.appendChild(phoneticCard);
+            });
+        }
+
+        // 发音功能
+        function speakWord(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+                
+                // 标记为已学习
+                if (!learnedWords.includes(text)) {
+                    learnedWords.push(text);
+                    localStorage.setItem('ielts_learned_words', JSON.stringify(learnedWords));
+                    updateStats();
+                }
+            } else {
+                alert('您的浏览器不支持语音合成功能，请使用Chrome或Edge浏览器。');
+            }
+        }
+
+        // 搜索词汇
+        function searchVocabulary(keyword) {
+            searchKeyword = keyword;
+            loadVocabulary();
+        }
+
+        // 按话题筛选
+        function filterByTopic(topic) {
+            currentTopic = topic;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.filters:first-child .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadVocabulary();
+        }
+
+        // 按难度筛选
+        function filterByDifficulty(difficulty) {
+            currentDifficulty = difficulty;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.filters:nth-child(2) .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadVocabulary();
+        }
+
+        // 获取难度CSS类
+        function getDifficultyClass(difficulty) {
+            switch(difficulty) {
+                case '基础': return 'basic';
+                case '中等': return 'intermediate';
+                case '高级': return 'advanced';
+                default: return 'basic';
+            }
+        }
+
+        // 开始练习
+        function startPractice() {
+            // 记录练习天数
+            const today = new Date().toDateString();
+            if (!practiceDays.includes(today)) {
+                practiceDays.push(today);
+                localStorage.setItem('ielts_practice_days', JSON.stringify(practiceDays));
+                updateStats();
+            }
+            
+            // 切换到词汇页面并显示随机词汇
+            showSection('vocabulary');
+            
+            // 显示提示
+            alert('🎯 今日学习开始！建议学习10个新词汇并练习发音。');
+        }
+
+        // 更新统计数据
+        function updateStats() {
+            document.getElementById('learnedWords').textContent = learnedWords.length;
+            document.getElementById('practiceDays').textContent = practiceDays.length;
+            
+            // 更新总词汇数
+            document.getElementById('totalWords').textContent = vocabulary.length + '+';
+            
+            // 更新话题数
+            const topics = [...new Set(vocabulary.map(word => word.topic))];
+            document.getElementById('totalTopics').textContent = topics.length;
+        }
+
+        // 初始化页面
+        function initPage() {
+            // 加载首页统计数据
+            updateStats();
+            
+            // 加载词汇页面
+            loadVocabulary();
+            
+            // 检查是否今天已经练习过
+            const today = new Date().toDateString();
+            if (!practiceDays.includes(today)) {
+                // 显示今日学习提醒
+                setTimeout(() => {
+                    if (confirm('🎯 今天还没有开始学习，现在开始今日学习吗？')) {
+                        startPractice();
+                    }
+                }, 1000);
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
