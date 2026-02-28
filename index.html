@@ -1,28 +1,28 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闆呮€濈尗 - IELTS鍙戦煶瀛︿範宸ュ叿 (IELTS Cat Pronunciation Tool)</title>
+    <title>雅思猫 - IELTS发音学习工具 (IELTS Cat Pronunciation Tool)</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- iOS Safari PWA鏀寔 -->
+    <!-- iOS Safari PWA支持 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="闆呮€濈尗">
+    <meta name="apple-mobile-web-app-title" content="雅思猫">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="icons/icon-192.png">
     
-    <!-- 涓婚棰滆壊 -->
+    <!-- 主题颜色 -->
     <meta name="theme-color" content="#667eea">
     
-    <!-- 绀句氦濯掍綋鍒嗕韩淇℃伅 -->
-    <meta property="og:title" content="闆呮€濈尗 - IELTS鍙戦煶瀛︿範宸ュ叿">
-    <meta property="og:description" content="鍏嶈垂闆呮€濆彂闊冲涔犲伐鍏凤紝甯姪鎮ㄤ粠6.0鎻愬崌鍒?.5鍒?>
+    <!-- 社交媒体分享信息 -->
+    <meta property="og:title" content="雅思猫 - IELTS发音学习工具">
+    <meta property="og:description" content="免费雅思发音学习工具，帮助您从6.0提升到7.5分">
     <meta property="og:image" content="https://irvingmomo.github.io/ielts-cat-app/icons/icon-512.png">
     <meta property="og:url" content="https://irvingmomo.github.io/ielts-cat-app/">
     
@@ -331,7 +331,7 @@
         }
         
         .tip-item::before {
-            content: "馃挕";
+            content: "💡";
             position: absolute;
             left: 0;
             font-size: 1.2rem;
@@ -460,7 +460,7 @@
             }
         }
         
-        /* 鍔犺浇鍔ㄧ敾 */
+        /* 加载动画 */
         .loading {
             display: none;
             text-align: center;
@@ -486,7 +486,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* 娑堟伅閫氱煡 */
+        /* 消息通知 */
         .message {
             position: fixed;
             top: 20px;
@@ -525,7 +525,7 @@
             to { opacity: 0; }
         }
         
-        /* 杩涘害鏉?*/
+        /* 进度条 */
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -542,7 +542,7 @@
             transition: width 0.5s ease-out;
         }
         
-        /* 宸ュ叿鎻愮ず */
+        /* 工具提示 */
         .tooltip {
             position: relative;
             display: inline-block;
@@ -572,7 +572,7 @@
             opacity: 1;
         }
         
-        /* 鏆楄壊妯″紡鏀寔 */
+        /* 暗色模式支持 */
         @media (prefers-color-scheme: dark) {
             body {
                 background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
@@ -588,6 +588,4 @@
                 border-left-color: #667eea;
             }
             
-            .word-card
-
-
+            .word-card {

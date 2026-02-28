@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闆呮€濈尗 - GitHub涓婁紶鎸囧崡</title>
+    <title>雅思猫 - GitHub上传指南</title>
     <style>
         * {
             margin: 0;
@@ -51,6 +51,12 @@
             padding: 25px;
             margin-bottom: 20px;
             border-left: 5px solid #667eea;
+            transition: transform 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
         .step-number {
@@ -64,109 +70,111 @@
             line-height: 40px;
             font-weight: bold;
             margin-right: 15px;
+            font-size: 1.2rem;
         }
         
         .step-title {
-            display: inline-block;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #333;
+            font-size: 1.4rem;
+            color: #343a40;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
         
         .step-content {
-            margin-top: 15px;
-            padding-left: 55px;
-        }
-        
-        .screenshot {
-            max-width: 100%;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-left: 55px;
         }
         
         .code-block {
             background: #2d3748;
             color: #e2e8f0;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             font-family: 'Courier New', monospace;
             margin: 15px 0;
             overflow-x: auto;
         }
         
+        .link-box {
+            background: #e3f2fd;
+            border: 2px dashed #2196f3;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .link-box a {
+            color: #2196f3;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        
         .button {
             display: inline-block;
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            margin: 10px 5px;
+            font-size: 1.1rem;
+            margin: 10px;
             transition: all 0.3s;
+            border: none;
+            cursor: pointer;
         }
         
         .button:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .button.secondary {
-            background: #28a745;
-        }
-        
-        .button.secondary:hover {
-            background: #218838;
-        }
-        
-        .warning {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            color: #856404;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
         .success {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            color: #155724;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         }
         
-        .file-list {
-            background: #e9ecef;
-            border-radius: 10px;
+        .warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        }
+        
+        .tip {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
             padding: 15px;
+            border-radius: 10px;
             margin: 15px 0;
         }
         
-        .file-item {
-            padding: 8px 15px;
-            border-bottom: 1px solid #dee2e6;
-        }
-        
-        .file-item:last-child {
-            border-bottom: none;
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
         }
         
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 25px;
+                margin: 10px;
             }
             
             .header h1 {
                 font-size: 2rem;
             }
             
+            .step {
+                padding: 20px;
+            }
+            
             .step-content {
-                padding-left: 0;
+                margin-left: 0;
             }
         }
     </style>
@@ -174,152 +182,132 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>馃惐 闆呮€濈尗閮ㄧ讲鎸囧崡</h1>
-            <p>绠€鍗?姝ワ紝灏嗕綘鐨勯泤鎬濆涔犲簲鐢ㄩ儴缃插埌浜掕仈缃?/p>
-        </div>
-        
-        <div class="warning">
-            <strong>鈿狅笍 閲嶈鎻愮ず锛?/strong> 浣犻渶瑕佹湁涓€涓狦itHub璐﹀彿銆傚鏋滄病鏈夛紝璇峰厛娉ㄥ唽锛?a href="https://github.com" target="_blank">https://github.com</a>
+            <h1>🐱 雅思猫 - GitHub上传指南</h1>
+            <p>一步一步教你将雅思猫部署到GitHub Pages</p>
         </div>
         
         <div class="step">
-            <div class="step-number">1</div>
-            <div class="step-title">鍒涘缓GitHub浠撳簱</div>
+            <div class="step-title">
+                <span class="step-number">1</span>
+                <h3>创建GitHub仓库</h3>
+            </div>
             <div class="step-content">
-                <p>璁块棶浠ヤ笅閾炬帴鍒涘缓鏂颁粨搴擄細</p>
-                <a href="https://github.com/new" target="_blank" class="button">鍒涘缓鏂颁粨搴?/a>
-                
-                <p><strong>濉啓淇℃伅锛?/strong></p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>Repository name:</strong> <code>ielts-cat-app</code></li>
-                    <li><strong>Description:</strong> 闆呮€濆彂闊冲涔犲伐鍏?/li>
-                    <li><strong>Public:</strong> 鉁?鍕鹃€夛紙鍏紑锛?/li>
-                    <li><strong>Initialize this repository with:</strong> 淇濇寔榛樿</li>
+                <p>首先，创建一个新的GitHub仓库：</p>
+                <div class="link-box">
+                    <a href="https://github.com/new" target="_blank">https://github.com/new</a>
+                </div>
+                <p><strong>填写信息：</strong></p>
+                <ul>
+                    <li><strong>Repository name</strong>: <code>ielts-cat-app</code></li>
+                    <li><strong>Description</strong>: 雅思发音学习工具</li>
+                    <li><strong>Public</strong>: ✅ 勾选（公开）</li>
+                    <li><strong>其他选项</strong>: ❌ 全部不勾选</li>
                 </ul>
-                
-                <p>鐐瑰嚮 <strong>Create repository</strong> 鎸夐挳</p>
+                <button class="button" onclick="openLink('https://github.com/new')">创建仓库</button>
             </div>
         </div>
         
         <div class="step">
-            <div class="step-number">2</div>
-            <div class="step-title">涓婁紶鏂囦欢</div>
+            <div class="step-title">
+                <span class="step-number">2</span>
+                <h3>上传文件</h3>
+            </div>
             <div class="step-content">
-                <p>鍒涘缓浠撳簱鍚庯紝浣犱細鐪嬪埌杩欎釜椤甸潰锛?/p>
+                <p>创建成功后，直接上传文件：</p>
+                <div class="link-box">
+                    <a href="https://github.com/irvingmomo/ielts-cat-app/upload" target="_blank">https://github.com/irvingmomo/ielts-cat-app/upload</a>
+                </div>
+                <p><strong>上传步骤：</strong></p>
+                <ol>
+                    <li>打开文件夹：<code>C:\Users\11\ielts-cat-simple\deploy\</code></li>
+                    <li>全选所有文件（Ctrl+A）</li>
+                    <li>拖拽到GitHub上传区域</li>
+                    <li>填写Commit message: <code>Initial commit: IELTS Cat web app</code></li>
+                    <li>点击 <strong>Commit changes</strong></li>
+                </ol>
+                <button class="button" onclick="openLink('https://github.com/irvingmomo/ielts-cat-app/upload')">上传文件</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">3</span>
+                <h3>启用GitHub Pages</h3>
+            </div>
+            <div class="step-content">
+                <p>启用GitHub Pages功能：</p>
+                <div class="link-box">
+                    <a href="https://github.com/irvingmomo/ielts-cat-app/settings/pages" target="_blank">https://github.com/irvingmomo/ielts-cat-app/settings/pages</a>
+                </div>
+                <p><strong>配置设置：</strong></p>
+                <ul>
+                    <li><strong>Source</strong>: Deploy from a branch</li>
+                    <li><strong>Branch</strong>: main</li>
+                    <li><strong>Folder</strong>: /(root)</li>
+                </ul>
+                <p>点击 <strong>Save</strong> 保存设置</p>
+                <button class="button" onclick="openLink('https://github.com/irvingmomo/ielts-cat-app/settings/pages')">启用Pages</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">4</span>
+                <h3>访问网站</h3>
+            </div>
+            <div class="step-content">
+                <p>等待1-2分钟，然后访问你的网站：</p>
+                <div class="link-box">
+                    <a href="https://irvingmomo.github.io/ielts-cat-app/" target="_blank">https://irvingmomo.github.io/ielts-cat-app/</a>
+                </div>
+                <div class="tip">
+                    <p><strong>💡 提示：</strong> 如果显示404错误，请等待几分钟再刷新。GitHub Pages需要时间部署。</p>
+                </div>
+                <button class="button success" onclick="openLink('https://irvingmomo.github.io/ielts-cat-app/')">访问网站</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">5</span>
+                <h3>备用方案</h3>
+            </div>
+            <div class="step-content">
+                <p><strong>如果GitHub有问题，可以使用：</strong></p>
                 
-                <p><strong>鏂规硶A锛氬揩閫熶笂浼犻摼鎺?/strong></p>
-                <p>鐩存帴璁块棶涓婁紶椤甸潰锛堟浛鎹?code>YOUR_USERNAME</code>涓轰綘鐨凣itHub鐢ㄦ埛鍚嶏級锛?/p>
+                <h4>Vercel（最简单）</h4>
+                <p>拖拽上传，立即部署：</p>
+                <button class="button warning" onclick="openLink('https://vercel.com')">使用Vercel</button>
+                
+                <h4>本地使用</h4>
+                <p>即使不部署，也可以本地使用：</p>
                 <div class="code-block">
-                    https://github.com/YOUR_USERNAME/ielts-cat-app/upload
-                </div>
-                <a href="#" onclick="openUploadPage()" class="button">鎵撳紑涓婁紶椤甸潰</a>
-                
-                <p><strong>鏂规硶B锛氭墜鍔ㄦ壘鍒颁笂浼犳寜閽?/strong></p>
-                <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li>璁块棶浣犵殑浠撳簱锛?code>https://github.com/YOUR_USERNAME/ielts-cat-app</code></li>
-                    <li>鐐瑰嚮鍙充笂瑙掔殑缁胯壊鎸夐挳 <strong>"Add file"</strong></li>
-                    <li>閫夋嫨 <strong>"Upload files"</strong></li>
-                </ol>
-                
-                <div class="file-list">
-                    <p><strong>闇€瑕佷笂浼犵殑鏂囦欢锛?/strong></p>
-                    <div class="file-item">馃搫 index.html</div>
-                    <div class="file-item">馃搫 manifest.json</div>
-                    <div class="file-item">馃搫 sw.js</div>
-                    <div class="file-item">馃搫 README.md</div>
-                    <div class="file-item">馃搫 DEPLOY_GUIDE.md</div>
-                    <div class="file-item">馃搫 upload_to_github.ps1</div>
-                    <div class="file-item">馃搫 WEB_UPLOAD_GUIDE.html</div>
-                    <div class="file-item">馃搫 generate_icons.html</div>
-                </div>
-                
-                <p><strong>涓婁紶姝ラ锛?/strong></p>
-                <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li>灏嗕笂闈㈠垪鍑虹殑鎵€鏈夋枃浠舵嫋鎷藉埌涓婁紶鍖哄煙</li>
-                    <li>鍦ㄩ〉闈㈠簳閮ㄥ～鍐欙細<code>Initial commit: IELTS Cat web app</code></li>
-                    <li>鐐瑰嚮 <strong>Commit changes</strong></li>
-                </ol>
-            </div>
-        </div>
-        
-        <div class="step">
-            <div class="step-number">3</div>
-            <div class="step-title">鍚敤GitHub Pages</div>
-            <div class="step-content">
-                <p>鏂囦欢涓婁紶鍚庯紝鍚敤缃戠珯鍔熻兘锛?/p>
-                
-                <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li>杩涘叆浠撳簱鐨?<strong>Settings</strong> 鏍囩椤?/li>
-                    <li>鍦ㄥ乏渚ц彍鍗曢€夋嫨 <strong>Pages</strong></li>
-                    <li>鍦?<strong>Source</strong> 閮ㄥ垎锛?                        <ul style="margin-left: 20px; margin-top: 5px;">
-                            <li>閫夋嫨锛?strong>Deploy from a branch</strong></li>
-                            <li>Branch锛?strong>main</strong></li>
-                            <li>Folder锛?strong>/(root)</strong></li>
-                        </ul>
-                    </li>
-                    <li>鐐瑰嚮 <strong>Save</strong></li>
-                </ol>
-                
-                <a href="#" onclick="openPagesSettings()" class="button secondary">鎵撳紑Pages璁剧疆</a>
-                
-                <div class="success" style="margin-top: 20px;">
-                    <p><strong>馃帀 瀹屾垚锛?/strong></p>
-                    <p>绛夊緟1-2鍒嗛挓锛岀劧鍚庤闂綘鐨勭綉绔欙細</p>
-                    <div class="code-block">
-                        https://YOUR_USERNAME.github.io/ielts-cat-app/
-                    </div>
+                    # 启动本地服务器<br>
+                    cd C:\Users\11\ielts-cat-simple\deploy<br>
+                    python -m http.server 8080<br><br>
+                    # 访问 http://localhost:8080
                 </div>
             </div>
         </div>
         
-        <div class="step">
-            <div class="step-title">澶囩敤鏂规锛氫娇鐢≒owerShell鑴氭湰</div>
-            <div class="step-content">
-                <p>濡傛灉缃戦〉涓婁紶鏈夐棶棰橈紝鍙互浣跨敤涓€閿剼鏈細</p>
-                
-                <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li>鎵撳紑鏂囦欢璧勬簮绠＄悊鍣紝鎵惧埌锛?code>C:\Users\11\ielts-cat-app-simple\deploy\</code></li>
-                    <li>鍙抽敭鐐瑰嚮 <code>upload_to_github.ps1</code></li>
-                    <li>閫夋嫨 <strong>"浣跨敤PowerShell杩愯"</strong></li>
-                    <li>鎸夌収鎻愮ず杈撳叆浣犵殑GitHub鐢ㄦ埛鍚?/li>
-                </ol>
-                
-                <div class="warning">
-                    <strong>娉ㄦ剰锛?/strong> 浣跨敤鑴氭湰鍓嶉渶瑕佸畨瑁匞it銆備笅杞藉湴鍧€锛?a href="https://git-scm.com/download/win" target="_blank">https://git-scm.com/download/win</a>
-                </div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e9ecef;">
-            <p>馃惐 <strong>闆呮€濈尗</strong> - 涓轰綘鐨処ELTS 7.5+鐩爣鑰岃璁?/p>
-            <p>濡傛湁闂锛岃仈绯籘elegram锛欯irvingmomo</p>
+        <div class="footer">
+            <p>如有问题，联系Telegram：@irvingmomo</p>
+            <p>🐱 祝您部署顺利，学习进步！</p>
         </div>
     </div>
     
     <script>
-        function openUploadPage() {
-            const username = prompt('璇疯緭鍏ヤ綘鐨凣itHub鐢ㄦ埛鍚嶏紙渚嬪锛歳ainwalker1217锛?);
-            if (username) {
-                window.open(`https://github.com/${username}/ielts-cat-app/upload`, '_blank');
-            }
+        function openLink(url) {
+            window.open(url, '_blank');
         }
         
-        function openPagesSettings() {
-            const username = prompt('璇疯緭鍏ヤ綘鐨凣itHub鐢ㄦ埛鍚嶏紙渚嬪锛歳ainwalker1217锛?);
-            if (username) {
-                window.open(`https://github.com/${username}/ielts-cat-app/settings/pages`, '_blank');
-            }
-        }
-        
-        // 鑷姩濉厖鐢ㄦ埛鍚嶏紙濡傛灉鍙兘锛?        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
-        if (username) {
-            document.querySelectorAll('.code-block').forEach(el => {
-                el.textContent = el.textContent.replace('YOUR_USERNAME', username);
+        // 自动填充用户名
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href*="irvingmomo"]');
+            links.forEach(link => {
+                link.href = link.href.replace('irvingmomo', prompt('请输入你的GitHub用户名（例如：irvingmomo）') || 'irvingmomo');
             });
-        }
+        });
     </script>
 </body>
 </html>
-
-
