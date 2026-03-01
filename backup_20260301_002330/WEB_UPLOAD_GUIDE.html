@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅思猫 - GitHub上传指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s;
+        }
+        
+        .step:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            color: #343a40;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-content {
+            margin-left: 55px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .link-box {
+            background: #e3f2fd;
+            border: 2px dashed #2196f3;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .link-box a {
+            color: #2196f3;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+        }
+        
+        .tip {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .step {
+                padding: 20px;
+            }
+            
+            .step-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐱 雅思猫 - GitHub上传指南</h1>
+            <p>一步一步教你将雅思猫部署到GitHub Pages</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">1</span>
+                <h3>创建GitHub仓库</h3>
+            </div>
+            <div class="step-content">
+                <p>首先，创建一个新的GitHub仓库：</p>
+                <div class="link-box">
+                    <a href="https://github.com/new" target="_blank">https://github.com/new</a>
+                </div>
+                <p><strong>填写信息：</strong></p>
+                <ul>
+                    <li><strong>Repository name</strong>: <code>ielts-cat-app</code></li>
+                    <li><strong>Description</strong>: 雅思发音学习工具</li>
+                    <li><strong>Public</strong>: ✅ 勾选（公开）</li>
+                    <li><strong>其他选项</strong>: ❌ 全部不勾选</li>
+                </ul>
+                <button class="button" onclick="openLink('https://github.com/new')">创建仓库</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">2</span>
+                <h3>上传文件</h3>
+            </div>
+            <div class="step-content">
+                <p>创建成功后，直接上传文件：</p>
+                <div class="link-box">
+                    <a href="https://github.com/irvingmomo/ielts-cat-app/upload" target="_blank">https://github.com/irvingmomo/ielts-cat-app/upload</a>
+                </div>
+                <p><strong>上传步骤：</strong></p>
+                <ol>
+                    <li>打开文件夹：<code>C:\Users\11\ielts-cat-simple\deploy\</code></li>
+                    <li>全选所有文件（Ctrl+A）</li>
+                    <li>拖拽到GitHub上传区域</li>
+                    <li>填写Commit message: <code>Initial commit: IELTS Cat web app</code></li>
+                    <li>点击 <strong>Commit changes</strong></li>
+                </ol>
+                <button class="button" onclick="openLink('https://github.com/irvingmomo/ielts-cat-app/upload')">上传文件</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">3</span>
+                <h3>启用GitHub Pages</h3>
+            </div>
+            <div class="step-content">
+                <p>启用GitHub Pages功能：</p>
+                <div class="link-box">
+                    <a href="https://github.com/irvingmomo/ielts-cat-app/settings/pages" target="_blank">https://github.com/irvingmomo/ielts-cat-app/settings/pages</a>
+                </div>
+                <p><strong>配置设置：</strong></p>
+                <ul>
+                    <li><strong>Source</strong>: Deploy from a branch</li>
+                    <li><strong>Branch</strong>: main</li>
+                    <li><strong>Folder</strong>: /(root)</li>
+                </ul>
+                <p>点击 <strong>Save</strong> 保存设置</p>
+                <button class="button" onclick="openLink('https://github.com/irvingmomo/ielts-cat-app/settings/pages')">启用Pages</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">4</span>
+                <h3>访问网站</h3>
+            </div>
+            <div class="step-content">
+                <p>等待1-2分钟，然后访问你的网站：</p>
+                <div class="link-box">
+                    <a href="https://irvingmomo.github.io/ielts-cat-app/" target="_blank">https://irvingmomo.github.io/ielts-cat-app/</a>
+                </div>
+                <div class="tip">
+                    <p><strong>💡 提示：</strong> 如果显示404错误，请等待几分钟再刷新。GitHub Pages需要时间部署。</p>
+                </div>
+                <button class="button success" onclick="openLink('https://irvingmomo.github.io/ielts-cat-app/')">访问网站</button>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">5</span>
+                <h3>备用方案</h3>
+            </div>
+            <div class="step-content">
+                <p><strong>如果GitHub有问题，可以使用：</strong></p>
+                
+                <h4>Vercel（最简单）</h4>
+                <p>拖拽上传，立即部署：</p>
+                <button class="button warning" onclick="openLink('https://vercel.com')">使用Vercel</button>
+                
+                <h4>本地使用</h4>
+                <p>即使不部署，也可以本地使用：</p>
+                <div class="code-block">
+                    # 启动本地服务器<br>
+                    cd C:\Users\11\ielts-cat-simple\deploy<br>
+                    python -m http.server 8080<br><br>
+                    # 访问 http://localhost:8080
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>如有问题，联系Telegram：@irvingmomo</p>
+            <p>🐱 祝您部署顺利，学习进步！</p>
+        </div>
+    </div>
+    
+    <script>
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+        
+        // 自动填充用户名
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href*="irvingmomo"]');
+            links.forEach(link => {
+                link.href = link.href.replace('irvingmomo', prompt('请输入你的GitHub用户名（例如：irvingmomo）') || 'irvingmomo');
+            });
+        });
+    </script>
+</body>
+</html>

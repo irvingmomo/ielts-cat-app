@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Cat GitHub上传指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .step {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border-left: 5px solid #4f46e5;
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #4f46e5;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .step-title {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        
+        .step-content {
+            margin-left: 55px;
+        }
+        
+        .step-content p {
+            margin-bottom: 15px;
+            color: #475569;
+        }
+        
+        .link-box {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
+        .link-box a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+        
+        .button.secondary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .screenshot {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            margin: 15px 0;
+        }
+        
+        .note {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .note strong {
+            color: #92400e;
+        }
+        
+        .file-list {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .file-list ul {
+            list-style: none;
+            column-count: 2;
+        }
+        
+        .file-list li {
+            padding: 5px 0;
+            color: #475569;
+        }
+        
+        .file-list li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8fafc;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .file-list ul {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 IELTS Cat 商业化部署指南</h1>
+            <p>9步系统完整上传到GitHub Pages</p>
+        </div>
+        
+        <div class="content">
+            <div class="step">
+                <span class="step-number">1</span>
+                <h2 class="step-title">访问GitHub仓库</h2>
+                <div class="step-content">
+                    <p>打开你的GitHub仓库页面：</p>
+                    <div class="link-box">
+                        <a href="https://github.com/irvingmomo/ielts-cat-app" target="_blank">
+                            https://github.com/irvingmomo/ielts-cat-app
+                        </a>
+                    </div>
+                    <p>如果仓库是空的，你会看到"Quick setup"页面。</p>
+                    <a href="https://github.com/irvingmomo/ielts-cat-app" class="button" target="_blank">打开GitHub仓库</a>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <h2 class="step-title">上传所有文件</h2>
+                <div class="step-content">
+                    <p>使用GitHub的Web上传功能：</p>
+                    <div class="link-box">
+                        <a href="https://github.com/irvingmomo/ielts-cat-app/upload" target="_blank">
+                            https://github.com/irvingmomo/ielts-cat-app/upload
+                        </a>
+                    </div>
+                    <p>将 <strong>deploy文件夹</strong> 中的所有文件拖拽到上传区域：</p>
+                    <div class="file-list">
+                        <p><strong>需要上传的文件：</strong></p>
+                        <ul>
+                            <li>index.html (主页面)</li>
+                            <li>app/ (核心应用)</li>
+                            <li>landing/ (营销落地页)</li>
+                            <li>blog/ (SEO博客文章)</li>
+                            <li>affiliate/ (联盟营销)</li>
+                            <li>legal/ (法律文件)</li>
+                            <li>assets/ (静态资源)</li>
+                            <li>manifest.json (PWA配置)</li>
+                            <li>sw.js (Service Worker)</li>
+                            <li>README.md (项目说明)</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/irvingmomo/ielts-cat-app/upload" class="button" target="_blank">上传文件</a>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <h2 class="step-title">启用GitHub Pages</h2>
+                <div class="step-content">
+                    <p>文件上传后，启用GitHub Pages：</p>
+                    <div class="link-box">
+                        <a href="https://github.com/irvingmomo/ielts-cat-app/settings/pages" target="_blank">
+                            https://github.com/irvingmomo/ielts-cat-app/settings/pages
+                        </a>
+                    </div>
+                    <p>设置如下：</p>
+                    <div class="note">
+                        <strong>配置步骤：</strong><br>
+                        1. Source: <strong>Deploy from a branch</strong><br>
+                        2. Branch: <strong>main</strong><br>
+                        3. Folder: <strong>/ (root)</strong><br>
+                        4. 点击 <strong>Save</strong>
+                    </div>
+                    <a href="https://github.com/irvingmomo/ielts-cat-app/settings/pages" class="button" target="_blank">配置Pages</a>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <h2 class="step-title">等待部署完成</h2>
+                <div class="step-content">
+                    <p>GitHub Pages部署需要1-2分钟。部署完成后，你可以访问：</p>
+                    <div class="link-box">
+                        <a href="https://irvingmomo.github.io/ielts-cat-app/" target="_blank">
+                            https://irvingmomo.github.io/ielts-cat-app/
+                        </a>
+                    </div>
+                    <p>测试所有功能链接：</p>
+                    <div class="note">
+                        <strong>主要链接：</strong><br>
+                        • 主应用: <a href="https://irvingmomo.github.io/ielts-cat-app/app/">/app/</a><br>
+                        • 落地页: <a href="https://irvingmomo.github.io/ielts-cat-app/landing/">/landing/</a><br>
+                        • 仪表盘: <a href="https://irvingmomo.github.io/ielts-cat-app/app/dashboard/">/app/dashboard/</a><br>
+                        • 博客: <a href="https://irvingmomo.github.io/ielts-cat-app/blog/">/blog/</a>
+                    </div>
+                    <a href="https://irvingmomo.github.io/ielts-cat-app/" class="button secondary" target="_blank">测试网站</a>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <h2 class="step-title">配置API密钥（可选）</h2>
+                <div class="step-content">
+                    <p>为了完整功能，需要配置：</p>
+                    <div class="note">
+                        <strong>1. Google Analytics</strong><br>
+                        • 注册: <a href="https://analytics.google.com/" target="_blank">analytics.google.com</a><br>
+                        • 获取跟踪ID: G-XXXXXXXXXX<br>
+                        • 更新文件: <code>app/js/analytics.js</code>
+                    </div>
+                    <div class="note">
+                        <strong>2. Stripe支付（测试模式）</strong><br>
+                        • 注册: <a href="https://stripe.com/" target="_blank">stripe.com</a><br>
+                        • 获取测试API密钥<br>
+                        • 更新文件: <code>app/js/payment.js</code>
+                    </div>
+                    <p>这些配置是可选的，不影响基本功能。</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <h2 class="step-title">开始使用</h2>
+                <div class="step-content">
+                    <p>部署完成后，你的商业化产品就上线了！</p>
+                    <div class="note">
+                        <strong>产品功能：</strong><br>
+                        • ✅ Freemium商业模式<br>
+                        • ✅ 自适应雅思模拟测试<br>
+                        • ✅ 用户仪表盘和进度跟踪<br>
+                        • ✅ SEO优化博客内容<br>
+                        • ✅ 联盟营销收入机会<br>
+                        • ✅ 完全响应式设计<br>
+                        • ✅ PWA支持（可安装为应用）
+                    </div>
+                    <p>现在可以开始推广你的产品了！</p>
+                </div>
+            </div>
+            
+            <div class="note">
+                <strong>💡 重要提示：</strong><br>
+                1. 如果遇到上传问题，可以逐个文件夹上传<br>
+                2. GitHub Pages部署后可能需要刷新缓存<br>
+                3. 所有功能在前端运行，无需后端服务器<br>
+                4. 用户数据保存在本地（localStorage）<br>
+                5. 完全免费托管在GitHub Pages
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <h3>需要帮助？</h3>
+                <p>如果在部署过程中遇到问题，可以通过Telegram联系我。</p>
+                <a href="https://t.me/rainwalker1217" class="button" target="_blank">联系支持</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>IELTS Cat 商业化部署指南 | 最后更新: 2026-03-01</p>
+            <p>© 2026 胖猫助手 - 所有文件已准备就绪，等待上传</p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加点击跟踪
+        document.querySelectorAll('a.button').forEach(button => {
+            button.addEventListener('click', function() {
+                const linkText = this.textContent;
+                console.log(`点击了: ${linkText} - ${this.href}`);
+            });
+        });
+        
+        // 自动滚动到顶部
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仪表盘 - IELTS Cat</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">IELTS Cat</div>
+            <nav>
+                <a href="#" class="active">📊 仪表盘</a>
+                <a href="#">📝 测试历史</a>
+                <a href="#">🎯 学习计划</a>
+                <a href="#">⚙️ 设置</a>
+                <a href="/affiliate/">📚 推荐资源</a>
+            </nav>
+            <div class="user-info">
+                <div class="plan-badge" id="planBadge">免费版</div>
+                <button onclick="upgradeToPremium()" class="btn-upgrade" id="upgradeBtn">升级到高级版</button>
+            </div>
+        </aside>
+
+        <!-- 主内容 -->
+        <main class="main-content">
+            <!-- 欢迎横幅 -->
+            <div class="welcome-banner">
+                <h1>欢迎回来！</h1>
+                <p>今日学习建议：完成一次模拟测试，重点练习听力部分</p>
+            </div>
+
+            <!-- 快速统计 -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalTests">0</div>
+                    <div class="stat-label">总测试次数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avgScore">0.0</div>
+                    <div class="stat-label">平均分数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="streakDays">0</div>
+                    <div class="stat-label">连续学习天数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="testsToday">0/1</div>
+                    <div class="stat-label">今日测试</div>
+                </div>
+            </div>
+
+            <!-- 分数趋势图 -->
+            <div class="chart-section">
+                <h2>分数趋势</h2>
+                <div class="chart-container">
+                    <canvas id="scoreChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 弱点分析 -->
+            <div class="weakness-section">
+                <h2>薄弱环节分析</h2>
+                <div class="weakness-grid">
+                    <div class="weakness-card">
+                        <h3>听力</h3>
+                        <div class="weakness-score">6.0</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <p>建议：多练习数字和日期听力</p>
+                    </div>
+                    <div class="weakness-card">
+                        <h3>阅读</h3>
+                        <div class="weakness-score">6.5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                        <p>建议：提高阅读速度</p>
+                    </div>
+                    <div class="weakness-card">
+                        <h3>写作</h3>
+                        <div class="weakness-score">5.5</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 55%"></div>
+                        </div>
+                        <p>建议：练习议论文结构</p>
+                    </div>
+                    <div class="weakness-card">
+                        <h3>口语</h3>
+                        <div class="weakness-score">6.0</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <p>建议：增加口语练习频率</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最近测试 -->
+            <div class="recent-tests">
+                <h2>最近测试</h2>
+                <div class="test-list" id="testList">
+                    <!-- 测试记录将通过JS动态加载 -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/payment.js"></script>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
