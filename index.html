@@ -3,703 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雅思猫 - IELTS发音学习工具 (IELTS Cat Pronunciation Tool)</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- iOS Safari PWA支持 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="雅思猫">
-    <link rel="apple-touch-icon" href="icons/icon-192.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="icons/icon-192.png">
-    
-    <!-- 主题颜色 -->
-    <meta name="theme-color" content="#667eea">
-    
-    <!-- 社交媒体分享信息 -->
-    <meta property="og:title" content="雅思猫 - IELTS发音学习工具">
-    <meta property="og:description" content="免费雅思发音学习工具，帮助您从6.0提升到7.5分">
-    <meta property="og:image" content="https://irvingmomo.github.io/ielts-cat-app/icons/icon-512.png">
-    <meta property="og:url" content="https://irvingmomo.github.io/ielts-cat-app/">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        .nav {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
-        }
-        
-        .nav button {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            background: none;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .nav button:hover {
-            background: #e9ecef;
-        }
-        
-        .nav button.active {
-            background: white;
-            border-bottom: 3px solid #667eea;
-            font-weight: bold;
-        }
-        
-        .content {
-            padding: 30px;
-            min-height: 500px;
-        }
-        
-        .section {
-            display: none;
-        }
-        
-        .section.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-        }
-        
-        .word-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            transition: all 0.3s;
-        }
-        
-        .word-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .word-info {
-            flex: 1;
-        }
-        
-        .word-english {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .word-chinese {
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .word-phonetic {
-            color: #667eea;
-            font-family: monospace;
-            margin-top: 5px;
-        }
-        
-        .play-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-        
-        .play-btn:hover {
-            background: #5a67d8;
-            transform: scale(1.1);
-        }
-        
-        .test-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
-        }
-        
-        .test-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .stat-label {
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .pronunciation-tips {
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        .tip-item {
-            margin: 10px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .tip-item:before {
-            content: "💡";
-            position: absolute;
-            left: 0;
-        }
-        
-        .online-tools {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .tool-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .tool-btn:hover {
-            background: #218838;
-            transform: translateY(-2px);
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            border-top: 1px solid #e9ecef;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                border-radius: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .nav {
-                flex-direction: column;
-            }
-            
-            .nav button {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>免费雅思自适应模拟测试 - IELTS Cat</title>
+    <meta name="description" content="练习真实考试难度，即时获取分数，识别薄弱环节。">
+    <link rel="stylesheet" href="css/landing.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🐱 雅思猫 (IELTS Cat)</h1>
-            <p>你的雅思发音学习伙伴 - 网页版</p>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">IELTS Cat</a>
+            <div class="nav-links">
+                <a href="#features">功能</a>
+                <a href="#how-it-works">如何使用</a>
+                <a href="#pricing">定价</a>
+                <a href="/app/" class="btn-outline">进入应用</a>
+            </div>
         </div>
-        
-        <div class="nav">
-            <button class="active" onclick="showSection('home')">🏠 首页</button>
-            <button onclick="showSection('vocabulary')">📚 词汇</button>
-            <button onclick="showSection('sentences')">💬 句子</button>
-            <button onclick="showSection('phonetics')">🔊 音标</button>
-        </div>
-        
-        <div class="content">
-            <!-- 首页 -->
-            <div id="home" class="section active">
-                <div class="card">
-                    <h2>🎯 学习目标</h2>
-                    <p><strong>IELTS分数提升:</strong> 6.0 → 7.5 (3个月计划)</p>
-                    <p><strong>每日学习时间:</strong> 工作日30分钟，周末3小时</p>
-                    <p><strong>当前进度:</strong> 发音学习阶段</p>
-                </div>
-                
-                <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-value" id="wordCount">200+</div>
-                        <div class="stat-label">雅思词汇</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="sentenceCount">21</div>
-                        <div class="stat-label">常用句式</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="phoneticCount">43</div>
-                        <div class="stat-label">音标学习</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="practiceTime">0</div>
-                        <div class="stat-label">练习分钟</div>
-                    </div>
-                </div>
-                
-                <div class="pronunciation-tips">
-                    <h3>🎵 发音学习技巧</h3>
-                    <div class="tip-item">长元音要拉长发音，如 /iː/ 在 "see" 中</div>
-                    <div class="tip-item">短元音要短促有力，如 /ɪ/ 在 "sit" 中</div>
-                    <div class="tip-item">双元音要平滑过渡，如 /aɪ/ 在 "my" 中</div>
-                    <div class="tip-item">清辅音声带不振动，如 /p/, /t/, /k/</div>
-                    <div class="tip-item">浊辅音声带振动，如 /b/, /d/, /g/</div>
-                </div>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <button class="test-btn" onclick="testPronunciation()">
-                        🔊 测试发音功能
-                    </button>
-                    <button class="test-btn" onclick="showOnlineTools()">
-                        🌐 在线发音工具
-                    </button>
-                </div>
+    </nav>
+
+    <!-- Hero 部分 -->
+    <section class="hero">
+        <div class="container">
+            <h1>免费雅思自适应模拟测试</h1>
+            <p class="subtitle">练习真实考试难度，即时获取分数，识别薄弱环节</p>
+            <div class="cta-buttons">
+                <a href="/app/" class="btn-primary" onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Start Free Test'});">
+                    开始免费测试
+                </a>
+                <a href="#sample-report" class="btn-secondary">
+                    查看样题报告
+                </a>
             </div>
-            
-            <!-- 词汇页面 -->
-            <div id="vocabulary" class="section">
-                <div class="card">
-                    <h2>📚 雅思核心词汇 (200+)</h2>
-                    <p>点击播放按钮学习发音，点击词汇查看详情</p>
-                    
-                    <div id="vocabularyList">
-                        <!-- 词汇将通过JavaScript动态加载 -->
-                    </div>
+            <div class="stats">
+                <div class="stat">
+                    <span class="number">10,000+</span>
+                    <span class="label">学生使用</span>
                 </div>
-            </div>
-            
-            <!-- 句子页面 -->
-            <div id="sentences" class="section">
-                <div class="card">
-                    <h2>💬 常用雅思句式 (21个)</h2>
-                    <p>学习常用表达，提高口语和写作能力</p>
-                    
-                    <div id="sentenceList">
-                        <!-- 句子将通过JavaScript动态加载 -->
-                    </div>
+                <div class="stat">
+                    <span class="number">95%</span>
+                    <span class="label">满意度</span>
                 </div>
-            </div>
-            
-            <!-- 音标页面 -->
-            <div id="phonetics" class="section">
-                <div class="card">
-                    <h2>🔊 英语音标学习 (43个)</h2>
-                    <p>掌握所有英语音标，打好发音基础</p>
-                    
-                    <div id="phoneticList">
-                        <!-- 音标将通过JavaScript动态加载 -->
-                    </div>
+                <div class="stat">
+                    <span class="number">0.5+</span>
+                    <span class="label">平均提分</span>
                 </div>
             </div>
         </div>
-        
-        <div class="footer">
-            <p>🐱 雅思猫 - 为你的IELTS 7.5+目标而设计</p>
-            <p>📧 反馈: 通过Telegram联系胖猫</p>
+    </section>
+
+    <!-- 功能优势 -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>为什么选择 IELTS Cat</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">🎯</div>
+                    <h3>真实考试难度</h3>
+                    <p>基于真实雅思题库，自适应调整难度</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>即时分数</h3>
+                    <p>测试完成后立即获得分数和详细分析</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3>弱点识别</h3>
+                    <p>精准识别薄弱环节，提供针对性建议</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">∞</div>
+                    <h3>无限练习</h3>
+                    <p>付费用户享受无限次测试和完整功能</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使用流程 -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2>三步开始提升</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>参加测试</h3>
+                    <p>完成自适应模拟测试，时长约60分钟</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>获取分数</h3>
+                    <p>立即获得总分和各部分分数</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>分析提升</h3>
+                    <p>查看详细分析报告，制定学习计划</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 定价 -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>选择适合你的计划</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card free">
+                    <h3>免费版</h3>
+                    <div class="price">¥0<span>/月</span></div>
+                    <ul>
+                        <li>✓ 每日1次测试</li>
+                        <li>✓ 基础分数报告</li>
+                        <li>✗ 历史记录</li>
+                        <li>✗ 详细分析</li>
+                        <li>✗ 弱点报告</li>
+                    </ul>
+                    <a href="/app/" class="btn-outline">开始免费</a>
+                </div>
+                <div class="pricing-card premium">
+                    <div class="badge">推荐</div>
+                    <h3>高级版</h3>
+                    <div class="price">¥25<span>/月</span></div>
+                    <ul>
+                        <li>✓ 无限次测试</li>
+                        <li>✓ 完整分数报告</li>
+                        <li>✓ 历史记录</li>
+                        <li>✓ 详细分析</li>
+                        <li>✓ 弱点报告</li>
+                    </ul>
+                    <a href="/app/#upgrade" class="btn-primary">立即升级</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2026 IELTS Cat. 保留所有权利。</p>
+            <div class="footer-links">
+                <a href="/legal/privacy-policy.html">隐私政策</a>
+                <a href="/legal/terms.html">服务条款</a>
+                <a href="mailto:contact@ieltscat.com">联系我们</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 邮件捕获弹窗 (稍后通过JS加载) -->
+    <div id="email-modal" class="modal">
+        <div class="modal-content">
+            <h3>保存你的分数和进度</h3>
+            <p>输入邮箱地址，我们将保存你的测试结果并跟踪学习进度</p>
+            <form id="email-form">
+                <input type="email" placeholder="你的邮箱地址" required>
+                <button type="submit" class="btn-primary">保存进度</button>
+            </form>
+            <button class="btn-text" onclick="closeModal()">稍后再说</button>
         </div>
     </div>
 
-    <script>
-        // 雅思词汇数据
-        const vocabulary = [
-            { english: "accommodation", chinese: "住宿", phonetic: "/əˌkɒməˈdeɪʃən/" },
-            { english: "achievement", chinese: "成就", phonetic: "/əˈtʃiːvmənt/" },
-            { english: "appropriate", chinese: "适当的", phonetic: "/əˈprəʊpriət/" },
-            { english: "assessment", chinese: "评估", phonetic: "/əˈsesmənt/" },
-            { english: "assumption", chinese: "假设", phonetic: "/əˈsʌmpʃən/" },
-            { english: "atmosphere", chinese: "气氛", phonetic: "/ˈætməsfɪə/" },
-            { english: "available", chinese: "可用的", phonetic: "/əˈveɪləbl/" },
-            { english: "beneficial", chinese: "有益的", phonetic: "/ˌbenɪˈfɪʃəl/" },
-            { english: "characteristic", chinese: "特征", phonetic: "/ˌkærəktəˈrɪstɪk/" },
-            { english: "circumstance", chinese: "环境", phonetic: "/ˈsɜːkəmstəns/" },
-            { english: "communication", chinese: "沟通", phonetic: "/kəˌmjuːnɪˈkeɪʃən/" },
-            { english: "comparison", chinese: "比较", phonetic: "/kəmˈpærɪsən/" },
-            { english: "competition", chinese: "竞争", phonetic: "/ˌkɒmpəˈtɪʃən/" },
-            { english: "conclusion", chinese: "结论", phonetic: "/kənˈkluːʒən/" },
-            { english: "consequence", chinese: "后果", phonetic: "/ˈkɒnsɪkwəns/" }
-        ];
-
-        // 雅思句子数据
-        const sentences = [
-            { english: "It is widely believed that...", chinese: "人们普遍认为...", category: "观点表达" },
-            { english: "The data clearly shows that...", chinese: "数据清楚地表明...", category: "数据描述" },
-            { english: "In contrast to..., ...", chinese: "与...相比，...", category: "对比表达" },
-            { english: "This can be attributed to...", chinese: "这可以归因于...", category: "原因结果" },
-            { english: "One possible solution is...", chinese: "一个可能的解决方案是...", category: "解决方案" },
-            { english: "In conclusion, it can be said that...", chinese: "总之，可以说...", category: "总结" },
-            { english: "From an academic perspective...", chinese: "从学术角度来看...", category: "学术表达" }
-        ];
-
-        // 音标数据
-        const phonetics = [
-            { symbol: "/iː/", example: "see", category: "长元音", difficulty: "简单" },
-            { symbol: "/ɪ/", example: "sit", category: "短元音", difficulty: "简单" },
-            { symbol: "/e/", example: "bed", category: "短元音", difficulty: "简单" },
-            { symbol: "/æ/", example: "cat", category: "短元音", difficulty: "简单" },
-            { symbol: "/ɑː/", example: "car", category: "长元音", difficulty: "中等" },
-            { symbol: "/ɔː/", example: "saw", category: "长元音", difficulty: "中等" },
-            { symbol: "/ʊ/", example: "put", category: "短元音", difficulty: "中等" },
-            { symbol: "/uː/", example: "too", category: "长元音", difficulty: "中等" },
-            { symbol: "/ʌ/", example: "cup", category: "短元音", difficulty: "中等" },
-            { symbol: "/ɜː/", example: "bird", category: "长元音", difficulty: "困难" }
-        ];
-
-        // 导航功能
-        function showSection(sectionId) {
-            // 隐藏所有部分
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // 显示选中的部分
-            document.getElementById(sectionId).classList.add('active');
-            
-            // 更新导航按钮状态
-            document.querySelectorAll('.nav button').forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // 根据点击的按钮找到对应的按钮
-            const buttons = document.querySelectorAll('.nav button');
-            buttons.forEach(button => {
-                if (button.textContent.includes(getButtonText(sectionId))) {
-                    button.classList.add('active');
-                }
-            });
-            
-            // 加载对应部分的数据
-            if (sectionId === 'vocabulary') {
-                loadVocabulary();
-            } else if (sectionId === 'sentences') {
-                loadSentences();
-            } else if (sectionId === 'phonetics') {
-                loadPhonetics();
-            }
-        }
-
-        function getButtonText(sectionId) {
-            const map = {
-                'home': '首页',
-                'vocabulary': '词汇',
-                'sentences': '句子',
-                'phonetics': '音标'
-            };
-            return map[sectionId] || '';
-        }
-
-        // 加载词汇
-        function loadVocabulary() {
-            const container = document.getElementById('vocabularyList');
-            container.innerHTML = '';
-            
-            vocabulary.forEach(word => {
-                const wordCard = document.createElement('div');
-                wordCard.className = 'word-card';
-                wordCard.innerHTML = `
-                    <div class="word-info">
-                        <div class="word-english">${word.english}</div>
-                        <div class="word-chinese">${word.chinese}</div>
-                        <div class="word-phonetic">${word.phonetic}</div>
-                    </div>
-                    <button class="play-btn" onclick="speakText('${word.english}')">🔊</button>
-                `;
-                container.appendChild(wordCard);
-            });
-        }
-
-        // 加载句子
-        function loadSentences() {
-            const container = document.getElementById('sentenceList');
-            container.innerHTML = '';
-            
-            sentences.forEach(sentence => {
-                const sentenceCard = document.createElement('div');
-                sentenceCard.className = 'word-card';
-                sentenceCard.innerHTML = `
-                    <div class="word-info">
-                        <div class="word-english">${sentence.english}</div>
-                        <div class="word-chinese">${sentence.chinese}</div>
-                        <div class="word-phonetic" style="color: #28a745;">${sentence.category}</div>
-                    </div>
-                    <button class="play-btn" onclick="speakText('${sentence.english}')">🔊</button>
-                `;
-                container.appendChild(sentenceCard);
-            });
-        }
-
-        // 加载音标
-        function loadPhonetics() {
-            const container = document.getElementById('phoneticList');
-            container.innerHTML = '';
-            
-            phonetics.forEach(phonetic => {
-                const phoneticCard = document.createElement('div');
-                phoneticCard.className = 'word-card';
-                phoneticCard.innerHTML = `
-                    <div class="word-info">
-                        <div class="word-english" style="font-family: monospace; font-size: 1.5rem;">${phonetic.symbol}</div>
-                        <div class="word-chinese">示例: ${phonetic.example}</div>
-                        <div class="word-phonetic">
-                            <span style="color: #667eea;">${phonetic.category}</span> | 
-                            <span style="color: ${phonetic.difficulty === '简单' ? '#28a745' : phonetic.difficulty === '中等' ? '#ffc107' : '#dc3545'}">
-                                难度: ${phonetic.difficulty}
-                            </span>
-                        </div>
-                    </div>
-                    <button class="play-btn" onclick="speakText('${phonetic.example}')">🔊</button>
-                `;
-                container.appendChild(phoneticCard);
-            });
-        }
-
-        // Web Speech API 发音功能
-        function speakText(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.8;
-                utterance.pitch = 1.0;
-                
-                // 显示播放状态
-                showMessage(`正在播放: "${text}"`, 'success');
-                
-                // 播放
-                speechSynthesis.speak(utterance);
-                
-                // 播放完成事件
-                utterance.onend = function() {
-                    showMessage(`播放完成: "${text}"`, 'info');
-                };
-                
-                // 播放错误事件
-                utterance.onerror = function(event) {
-                    console.error('Speech synthesis error:', event);
-                    showMessage(`播放失败，请尝试在线工具`, 'error');
-                    showOnlineTools(text);
-                };
-            } else {
-                showMessage('您的浏览器不支持语音合成，请使用在线工具', 'error');
-                showOnlineTools(text);
-            }
-        }
-
-        // 测试发音功能
-        function testPronunciation() {
-            speakText('Hello, this is IELTS Cat pronunciation test. Welcome to English learning!');
-        }
-
-        // 显示在线工具
-        function showOnlineTools(text = '') {
-            const tools = [
-                { name: 'Google翻译', url: `https://translate.google.com/?sl=en&tl=zh-CN&text=${encodeURIComponent(text || 'hello')}&op=translate`, color: '#4285f4' },
-                { name: '剑桥词典', url: `https://dictionary.cambridge.org/dictionary/english/${encodeURIComponent((text || 'hello').toLowerCase())}`, color: '#8b4513' },
-                { name: '有道词典', url: `https://dict.youdao.com/search?q=${encodeURIComponent(text || 'hello')}`, color: '#e60012' },
-                { name: 'Bing词典', url: `https://www.bing.com/dict/search?q=${encodeURIComponent(text || 'hello')}`, color: '#008272' }
-            ];
-            
-            const message = text ? 
-                `学习 "${text}" 的发音:` : 
-                '在线发音工具:';
-            
-            alert(`${message}\n\n` +
-                  `1. ${tools[0].name}\n` +
-                  `2. ${tools[1].name}\n` +
-                  `3. ${tools[2].name}\n` +
-                  `4. ${tools[3].name}\n\n` +
-                  `点击确定后，将打开Google翻译页面。`);
-            
-            // 自动打开第一个工具
-            window.open(tools[0].url, '_blank');
-        }
-
-        // 显示消息
-        function showMessage(message, type = 'info') {
-            // 创建消息元素
-            const messageDiv = document.createElement('div');
-            messageDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: 10px;
-                color: white;
-                font-weight: bold;
-                z-index: 1000;
-                animation: slideIn 0.3s, fadeOut 0.3s 2.7s;
-                ${type === 'success' ? 'background: #28a745;' : 
-                  type === 'error' ? 'background: #dc3545;' : 
-                  'background: #17a2b8;'}
-            `;
-            
-            // 添加CSS动画
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes fadeOut {
-                    from { opacity: 1; }
-                    to { opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            messageDiv.textContent = message;
-            document.body.appendChild(messageDiv);
-            
-            // 3秒后移除
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.parentNode.removeChild(messageDiv);
-                }
-            }, 3000);
-        }
-
-        // 学习进度跟踪
-        let practiceTime = 0;
-        
-        function updatePracticeTime() {
-            practiceTime += 1;
-            document.getElementById('practiceTime').textContent = practiceTime;
-            
-            // 每5分钟显示鼓励消息
-            if (practiceTime % 5 === 0) {
-                showMessage(`🎉 你已经学习了 ${practiceTime} 分钟！继续加油！`, 'success');
-            }
-        }
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始加载词汇
-            loadVocabulary();
-            
-            // 每60秒更新学习时间
-            setInterval(updatePracticeTime, 60000);
-            
-            // 显示欢迎消息
-            setTimeout(() => {
-                showMessage('🐱 欢迎使用雅思猫网页版！点击播放按钮开始学习发音。', 'info');
-            }, 1000);
-        });
-
-        // 页面卸载时保存进度
-        window.addEventListener('beforeunload', function() {
-            if (practiceTime > 0) {
-                localStorage.setItem('ieltsCat_practiceTime', practiceTime);
-                localStorage.setItem('ieltsCat_lastVisit', new Date().toISOString());
-            }
-        });
-
-        // 页面加载时恢复进度
-        window.addEventListener('load', function() {
-            const savedTime = localStorage.getItem('ieltsCat_practiceTime');
-            const lastVisit = localStorage.getItem('ieltsCat_lastVisit');
-            
-            if (savedTime) {
-                practiceTime = parseInt(savedTime);
-                document.getElementById('practiceTime').textContent = practiceTime;
-                
-                if (lastVisit) {
-                    const lastDate = new Date(lastVisit);
-                    const now = new Date();
-                    const daysDiff = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
-                    
-                    if (daysDiff > 0) {
-                        showMessage(`📅 欢迎回来！上次学习是 ${daysDiff} 天前。`, 'info');
-                    }
-                }
-            }
-        });
-    </script>
+    <script src="js/landing.js"></script>
 </body>
 </html>
