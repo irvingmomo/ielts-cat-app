@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Cat - 自适应模拟测试</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 顶部导航 -->
+        <header class="app-header">
+            <div class="header-left">
+                <a href="/" class="logo">IELTS Cat</a>
+            </div>
+            <div class="header-right">
+                <span class="user-plan" id="userPlan">免费版</span>
+                <a href="/app/dashboard/" class="btn-text">仪表盘</a>
+                <button onclick="upgradeToPremium()" class="btn-upgrade" id="upgradeBtn">升级到高级版</button>
+            </div>
+        </header>
+
+        <!-- 主内容 -->
+        <main class="app-main">
+            <div class="test-container">
+                <h1>雅思自适应模拟测试</h1>
+                <p class="test-description">完成以下测试，获取即时分数和详细分析</p>
+                
+                <!-- 测试限制提示 -->
+                <div class="usage-alert" id="usageAlert" style="display: none;">
+                    <p>⚠️ 免费用户每天只能进行1次测试。今日测试次数已用完。</p>
+                    <button onclick="upgradeToPremium()" class="btn-primary">升级到高级版</button>
+                </div>
+                
+                <!-- 测试部分 -->
+                <div class="test-sections">
+                    <div class="test-section" id="listeningSection">
+                        <h2>听力部分 (约30分钟)</h2>
+                        <div class="question">
+                            <p>1. 听录音，选择正确答案：</p>
+                            <div class="options">
+                                <label><input type="radio" name="q1" value="A"> A. 图书馆</label>
+                                <label><input type="radio" name="q1" value="B"> B. 餐厅</label>
+                                <label><input type="radio" name="q1" value="C"> C. 教室</label>
+                                <label><input type="radio" name="q1" value="D"> D. 办公室</label>
+                            </div>
+                        </div>
+                        <!-- 更多问题... -->
+                    </div>
+                    
+                    <div class="test-section" id="readingSection">
+                        <h2>阅读部分 (60分钟)</h2>
+                        <div class="passage">
+                            <p>阅读以下文章，回答问题...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="test-section" id="writingSection">
+                        <h2>写作部分 (60分钟)</h2>
+                        <div class="writing-prompt">
+                            <p>Task 1: 描述以下图表...</p>
+                            <textarea placeholder="在此输入你的回答..." rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 提交按钮 -->
+                <div class="test-actions">
+                    <button onclick="startTest()" class="btn-primary btn-large" id="startBtn">开始测试</button>
+                    <button onclick="submitTest()" class="btn-success btn-large" id="submitBtn" style="display: none;">提交测试</button>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 邮件捕获弹窗 -->
+        <div id="test-complete-modal" class="modal">
+            <div class="modal-content">
+                <h3>🎉 测试完成！</h3>
+                <div class="score-display">
+                    <div class="overall-score" id="overallScore">7.0</div>
+                    <p>你的雅思预估分数</p>
+                </div>
+                
+                <div class="section-scores">
+                    <div class="score-item">
+                        <span>听力</span>
+                        <span class="score-value" id="listeningScore">7.5</span>
+                    </div>
+                    <div class="score-item">
+                        <span>阅读</span>
+                        <span class="score-value" id="readingScore">7.0</span>
+                    </div>
+                    <div class="score-item">
+                        <span>写作</span>
+                        <span class="score-value" id="writingScore">6.5</span>
+                    </div>
+                    <div class="score-item">
+                        <span>口语</span>
+                        <span class="score-value" id="speakingScore">7.0</span>
+                    </div>
+                </div>
+                
+                <div class="email-capture">
+                    <h4>保存你的分数和进度</h4>
+                    <p>输入邮箱地址，我们将保存你的测试结果并跟踪学习进度</p>
+                    <form id="test-email-form">
+                        <input type="email" placeholder="你的邮箱地址" required>
+                        <button type="submit" class="btn-primary">保存进度</button>
+                    </form>
+                    <button class="btn-text" onclick="closeTestModal()">稍后再说</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
