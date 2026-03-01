@@ -5,10 +5,12 @@
 ```
 ielts-cat-clean/
 ├── index.html                    ← 主营销页面（网站首页）
+├── test-system-verification.html ← 测试系统验证页面
+├── 如何访问测试系统.md          ← 测试系统使用指南
 ├── learn/
-│   └── index.html                ← 免费学习工具（1000+词汇）
+│   └── index.html                ← 免费学习工具（200+词汇，50+句子，44音标）
 ├── app/
-│   └── index.html                ← CAT测试应用（付费墙逻辑）
+│   └── index.html                ← CAT测试应用（255+题库，付费墙逻辑）
 └── README_上传指南.md            ← 本文件
 ```
 
@@ -21,22 +23,25 @@ ielts-cat-clean/
 
 **第一步：上传根目录文件**
 - 点击 "Add file" → "Upload files"
-- 拖拽 `index.html` 到上传区域
-- 提交信息："更新主营销页面"
+- 拖拽以下文件到上传区域：
+  - `index.html` (主页面)
+  - `test-system-verification.html` (测试系统验证)
+  - `如何访问测试系统.md` (使用指南)
+- 提交信息："更新主页面和测试系统"
 - 点击 "Commit changes"
 
 **第二步：创建 learn 文件夹并上传**
 - 点击 "Add file" → "Create new file"
 - 输入路径：`learn/index.html`
 - 复制 `C:\Users\11\ielts-cat-clean\learn\index.html` 的内容粘贴
-- 提交信息："添加免费学习工具"
+- 提交信息："添加免费学习工具（200+词汇，50+句子，44音标）"
 - 点击 "Commit changes"
 
 **第三步：创建 app 文件夹并上传**
 - 点击 "Add file" → "Create new file"
 - 输入路径：`app/index.html`
 - 复制 `C:\Users\11\ielts-cat-clean\app\index.html` 的内容粘贴
-- 提交信息："添加CAT测试应用"
+- 提交信息："添加CAT测试应用（255+题库）"
 - 点击 "Commit changes"
 
 ## 🔗 部署后访问链接
@@ -44,8 +49,9 @@ ielts-cat-clean/
 上传成功后，等待1-2分钟，然后访问：
 
 1. **主页面**：https://irvingmomo.github.io/ielts-cat-app/
-2. **免费学习**：https://irvingmomo.github.io/ielts-cat-app/learn/
-3. **CAT测试**：https://irvingmomo.github.io/ielts-cat-app/app/
+2. **测试系统验证**：https://irvingmomo.github.io/ielts-cat-app/test-system-verification.html
+3. **免费学习**：https://irvingmomo.github.io/ielts-cat-app/learn/
+4. **CAT测试**：https://irvingmomo.github.io/ielts-cat-app/app/
 
 ## 🎯 功能说明
 
@@ -57,19 +63,25 @@ ielts-cat-clean/
 - 定价：学习永久免费，测试付费
 
 ### 2. 免费学习工具 (`learn/index.html`)
-- 1000+雅思词汇框架
-- 4个话题分类：教育、科技、环境、健康
-- 3个难度等级：基础、中等、高级
+- **200+雅思词汇**：教育、科技、环境、健康话题
+- **50+雅思句式**：观点表达、数据描述、对比表达、原因结果、解决方案
+- **44个国际音标**：完整音标系统，发音训练
 - Web Speech API发音功能
 - 学习进度跟踪（localStorage）
 - 搜索和筛选功能
 
 ### 3. CAT测试应用 (`app/index.html`)
+- **255+真实考题**：丰富题库，立即开始测试
+- **词汇题**：120题，基础/中等/高级难度
+- **语法题**：40题，覆盖所有语法点
+- **阅读题**：15题，短篇阅读
+- **听力题**：15题，模拟对话和讲座
+- **写作题**：15题，雅思写作任务
+- **口语题**：50题，Part 1/2/3
 - 自适应模拟测试
 - 免费测试：每天1次（完成测试后扣除）
 - 高级版：无限测试（localStorage标志）
-- 模拟测试流程：60分钟，即时评分
-- 占位升级流程
+- 即时评分和详细分析报告
 
 ## 🐱 技术特点
 
@@ -83,8 +95,11 @@ ielts-cat-clean/
 
 上传后请测试：
 - [ ] 主页面导航链接正常
+- [ ] 测试系统验证页面功能正常
 - [ ] 免费学习工具发音功能正常
-- [ ] CAT测试配额逻辑正常
+- [ ] CAT测试系统题库加载正常
+- [ ] 测试流程完整（开始→答题→反馈→报告）
+- [ ] 免费测试配额逻辑正常
 - [ ] 高级版升级流程正常
 
 ## 💡 注意事项
