@@ -242,10 +242,12 @@
             
             <!-- 测试部分 -->
             <div class="test-section">
-                <h3>🎯 开始测试</h3>
+                <h3>🎯 开始测试（测试阶段）</h3>
                 <p>点击下方按钮开始你的雅思自适应模拟测试。测试完成后将获得详细分数报告。</p>
-                <button class="btn btn-primary" id="startTestBtn" onclick="startTest()">开始测试</button>
-                <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">注意：免费用户每天只有1次测试机会，请认真完成</p>
+                <button class="btn btn-primary" id="startTestBtn" onclick="startTest()">🚀 立即开始测试</button>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666; background: #e8f5e8; padding: 10px; border-radius: 5px; border-left: 4px solid #4CAF50;">
+                    <strong>💡 测试阶段提示：</strong> 付费逻辑已禁用，免费无限次测试。正式上线后将恢复每天1次免费测试。
+                </p>
             </div>
             
             <!-- 历史记录 -->
@@ -258,10 +260,13 @@
                 </div>
             </div>
             
-            <!-- 升级到高级版 -->
-            <div class="upgrade-section">
-                <h3>🚀 升级到高级版</h3>
-                <p>解锁无限测试和高级功能：</p>
+            <!-- 升级到高级版（测试阶段禁用） -->
+            <div class="upgrade-section" style="background: #f8f9fa; border: 2px dashed #ccc; padding: 25px; border-radius: 10px;">
+                <h3>🚀 升级功能（测试阶段已禁用）</h3>
+                <p style="color: #666; margin-bottom: 15px;">
+                    <strong>💡 测试阶段提示：</strong> 付费升级功能已暂时禁用，所有用户可免费无限测试。
+                </p>
+                <p>正式上线后将解锁以下高级功能：</p>
                 <ul>
                     <li>✅ 无限次测试（无每日限制）</li>
                     <li>✅ 高级分析报告（详细弱点分析）</li>
@@ -269,8 +274,12 @@
                     <li>✅ 定制学习计划（个性化建议）</li>
                     <li>✅ 优先支持（快速问题解答）</li>
                 </ul>
-                <button class="btn btn-primary" onclick="upgradeToPremium()">立即升级 (¥25/月)</button>
-                <p style="margin-top: 15px; font-size: 0.9rem;">或先体验免费测试，满意后再升级</p>
+                <button class="btn btn-secondary" onclick="alert('测试阶段：升级功能已禁用，请直接开始免费测试')" style="background: #ccc; cursor: not-allowed;">
+                    🔒 测试阶段已禁用
+                </button>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666; padding: 10px; background: #e8f5e8; border-radius: 5px;">
+                    <strong>当前状态：</strong> 免费无限测试已启用，请直接点击上方"🚀 立即开始测试"按钮
+                </p>
             </div>
         </div>
         
@@ -285,35 +294,26 @@
     </div>
 
     <script>
-        // 检查用户是否为高级用户
+        // 检查用户是否为高级用户 - 测试阶段：总是显示有测试次数
         function checkPremiumStatus() {
-            const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
-            const remainingTests = localStorage.getItem('ieltsCatRemainingTests');
+            // 测试阶段：直接设置为测试模式
+            console.log('测试阶段：跳过付费检查，显示测试模式');
             
-            if (isPremium) {
-                // 高级用户
-                document.getElementById('premiumBadge').style.display = 'block';
-                document.getElementById('quotaCard').innerHTML = `
-                    <div class="quota-value">∞</div>
-                    <div class="quota-label">高级用户 - 无限测试</div>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">🎉 享受所有高级功能</p>
-                `;
-                document.getElementById('startTestBtn').innerText = '开始测试（高级版）';
-            } else {
-                // 免费用户
-                let today = new Date().toDateString();
-                let lastReset = localStorage.getItem('ieltsCatLastReset');
-                
-                // 如果是新的一天，重置测试次数
-                if (lastReset !== today) {
-                    localStorage.setItem('ieltsCatRemainingTests', '1');
-                    localStorage.setItem('ieltsCatLastReset', today);
-                    document.getElementById('remainingTests').textContent = '1';
-                } else {
-                    // 使用保存的剩余次数
-                    document.getElementById('remainingTests').textContent = remainingTests || '1';
-                }
-            }
+            // 显示测试阶段提示
+            document.getElementById('premiumBadge').style.display = 'block';
+            document.getElementById('premiumBadge').innerHTML = '测试阶段';
+            document.getElementById('premiumBadge').style.background = '#4CAF50';
+            
+            document.getElementById('quotaCard').innerHTML = `
+                <div class="quota-value">∞</div>
+                <div class="quota-label">测试阶段 - 无限测试</div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #4CAF50;">💡 测试阶段：付费逻辑已禁用，免费无限测试</p>
+            `;
+            document.getElementById('startTestBtn').innerText = '🚀 立即开始测试';
+            
+            // 确保localStorage中有测试次数（防止其他代码检查）
+            localStorage.setItem('ieltsCatRemainingTests', '999');
+            localStorage.setItem('ieltsCatPremium', 'true'); // 设置为高级用户
         }
         
         // 雅思CAT测试题库
@@ -3899,15 +3899,10 @@
             difficultyLevel: "基础"
         };
 
-        // 开始测试
+        // 开始测试 - 测试阶段：禁掉付费检查，免费直接测试
         function startTest() {
-            const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
-            const remainingTests = parseInt(localStorage.getItem('ieltsCatRemainingTests') || '1');
-            
-            if (!isPremium && remainingTests <= 0) {
-                alert('⚠️ 今日免费测试次数已用完\n\n请升级到高级版享受无限测试，或明天再来！');
-                return;
-            }
+            // 测试阶段：直接允许测试，不检查付费状态
+            console.log('开始测试 - 测试阶段：跳过付费检查');
             
             // 初始化测试
             currentTest = {
@@ -3921,6 +3916,9 @@
             
             // 显示测试界面
             showTestQuestion();
+            
+            // 可选：显示测试阶段提示
+            // alert('测试阶段：免费测试已启用，付费逻辑已禁用');
         }
 
         // 生成题目顺序
@@ -4725,12 +4723,7 @@
         
         // 升级到高级版
         function upgradeToPremium() {
-            if (confirm('🎉 升级到高级版\n\n享受以下功能：\n• 无限次测试\n• 完整历史记录\n• 高级分析报告\n• 定制学习计划\n\n价格：¥25/月\n\n确定要升级吗？')) {
-                // 模拟支付成功
-                localStorage.setItem('ieltsCatPremium', 'true');
-                alert('🎊 升级成功！\n\n你现在是高级用户，享受所有高级功能！');
-                location.reload();
-            }
+            alert('🔒 测试阶段提示\n\n付费升级功能已暂时禁用。\n\n当前为测试阶段，所有用户可免费无限测试。\n\n请直接点击"🚀 立即开始测试"按钮开始免费测试。');
         }
         
         // 页面加载时检查状态
