@@ -316,74 +316,416 @@
             }
         }
         
+        // 雅思CAT测试题库
+        const testQuestions = {
+            vocabulary: [
+                {
+                    id: 1,
+                    question: "What is the meaning of 'sustainability'?",
+                    options: [
+                        "The ability to maintain something at a certain rate or level",
+                        "The process of making something larger",
+                        "The act of destroying something",
+                        "The quality of being temporary"
+                    ],
+                    correct: 0,
+                    explanation: "'Sustainability' refers to the ability to maintain something at a certain rate or level, especially in environmental contexts.",
+                    difficulty: "基础",
+                    topic: "环境"
+                },
+                {
+                    id: 2,
+                    question: "Choose the synonym for 'innovation':",
+                    options: [
+                        "Invention",
+                        "Tradition",
+                        "Destruction",
+                        "Stagnation"
+                    ],
+                    correct: 0,
+                    explanation: "'Innovation' means the introduction of new ideas or methods, similar to 'invention'.",
+                    difficulty: "基础",
+                    topic: "科技"
+                },
+                {
+                    id: 3,
+                    question: "What does 'curriculum' refer to?",
+                    options: [
+                        "The subjects comprising a course of study in a school or college",
+                        "A type of examination",
+                        "A school building",
+                        "A teaching method"
+                    ],
+                    correct: 0,
+                    explanation: "'Curriculum' refers to the subjects comprising a course of study in a school or college.",
+                    difficulty: "基础",
+                    topic: "教育"
+                },
+                {
+                    id: 4,
+                    question: "Which word means 'the ability to read and write'?",
+                    options: [
+                        "Literacy",
+                        "Numeracy",
+                        "Vocabulary",
+                        "Fluency"
+                    ],
+                    correct: 0,
+                    explanation: "'Literacy' specifically refers to the ability to read and write.",
+                    difficulty: "基础",
+                    topic: "教育"
+                },
+                {
+                    id: 5,
+                    question: "What is the opposite of 'renewable'?",
+                    options: [
+                        "Non-renewable",
+                        "Sustainable",
+                        "Eco-friendly",
+                        "Biodegradable"
+                    ],
+                    correct: 0,
+                    explanation: "'Non-renewable' is the opposite of 'renewable', referring to resources that cannot be replenished.",
+                    difficulty: "中等",
+                    topic: "环境"
+                }
+            ],
+            grammar: [
+                {
+                    id: 6,
+                    question: "Choose the correct sentence:",
+                    options: [
+                        "If I had more time, I would study harder.",
+                        "If I have more time, I would study harder.",
+                        "If I had more time, I will study harder.",
+                        "If I have more time, I will studied harder."
+                    ],
+                    correct: 0,
+                    explanation: "This is a second conditional sentence, used for hypothetical situations. Structure: If + past simple, would + base verb.",
+                    difficulty: "中等",
+                    topic: "语法"
+                },
+                {
+                    id: 7,
+                    question: "Which sentence uses the correct passive voice?",
+                    options: [
+                        "The report was written by the students.",
+                        "The report written by the students.",
+                        "The report is writing by the students.",
+                        "The report was wrote by the students."
+                    ],
+                    correct: 0,
+                    explanation: "Passive voice structure: subject + be + past participle + by + agent.",
+                    difficulty: "基础",
+                    topic: "语法"
+                },
+                {
+                    id: 8,
+                    question: "Choose the correct preposition: 'I'm interested ___ learning English.'",
+                    options: [
+                        "in",
+                        "on",
+                        "at",
+                        "for"
+                    ],
+                    correct: 0,
+                    explanation: "The correct preposition after 'interested' is 'in'.",
+                    difficulty: "基础",
+                    topic: "语法"
+                },
+                {
+                    id: 9,
+                    question: "Which sentence has correct subject-verb agreement?",
+                    options: [
+                        "The team of researchers is conducting the study.",
+                        "The team of researchers are conducting the study.",
+                        "The team of researchers were conducting the study.",
+                        "The team of researchers has been conducting the study."
+                    ],
+                    correct: 0,
+                    explanation: "When 'team' is considered as a single unit, use singular verb 'is'.",
+                    difficulty: "中等",
+                    topic: "语法"
+                },
+                {
+                    id: 10,
+                    question: "Choose the correct comparative form: 'This book is ___ than that one.'",
+                    options: [
+                        "more interesting",
+                        "interestinger",
+                        "most interesting",
+                        "interesting"
+                    ],
+                    correct: 0,
+                    explanation: "For adjectives with more than two syllables, use 'more' + adjective for comparative form.",
+                    difficulty: "基础",
+                    topic: "语法"
+                }
+            ],
+            reading: [
+                {
+                    id: 11,
+                    passage: "Climate change refers to long-term shifts in temperatures and weather patterns. These shifts may be natural, but since the 1800s, human activities have been the main driver of climate change, primarily due to the burning of fossil fuels like coal, oil and gas. Burning fossil fuels generates greenhouse gas emissions that act like a blanket wrapped around the Earth, trapping the sun's heat and raising temperatures.",
+                    question: "What is the main cause of climate change since the 1800s?",
+                    options: [
+                        "Human activities, especially burning fossil fuels",
+                        "Natural shifts in weather patterns",
+                        "Changes in solar radiation",
+                        "Volcanic eruptions"
+                    ],
+                    correct: 0,
+                    explanation: "The passage states that since the 1800s, human activities have been the main driver of climate change, primarily due to burning fossil fuels.",
+                    difficulty: "基础",
+                    topic: "环境"
+                },
+                {
+                    id: 12,
+                    passage: "Artificial intelligence (AI) is transforming education by providing personalized learning experiences. AI systems can analyze student performance data to identify strengths and weaknesses, then adapt the curriculum accordingly. This allows students to learn at their own pace and receive targeted support where needed.",
+                    question: "How does AI help in education according to the passage?",
+                    options: [
+                        "By providing personalized learning experiences",
+                        "By replacing human teachers completely",
+                        "By making education more expensive",
+                        "By standardizing all learning materials"
+                    ],
+                    correct: 0,
+                    explanation: "The passage states that AI provides personalized learning experiences by analyzing student data and adapting the curriculum.",
+                    difficulty: "中等",
+                    topic: "教育"
+                }
+            ]
+        };
+
+        // 测试状态
+        let currentTest = {
+            currentQuestion: 0,
+            score: 0,
+            answers: [],
+            startTime: null,
+            questionOrder: [],
+            difficultyLevel: "基础"
+        };
+
         // 开始测试
         function startTest() {
             const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
-            let remainingTests = parseInt(localStorage.getItem('ieltsCatRemainingTests') || '1');
+            const remainingTests = parseInt(localStorage.getItem('ieltsCatRemainingTests') || '1');
             
             if (!isPremium && remainingTests <= 0) {
-                alert('❌ 今日免费测试次数已用完\n\n请明天再来，或升级到高级版享受无限测试！');
+                alert('⚠️ 今日免费测试次数已用完\n\n请升级到高级版享受无限测试，或明天再来！');
                 return;
             }
             
+            // 初始化测试
+            currentTest = {
+                currentQuestion: 0,
+                score: 0,
+                answers: [],
+                startTime: new Date(),
+                questionOrder: generateQuestionOrder(),
+                difficultyLevel: "基础"
+            };
+            
             // 显示测试界面
-            document.querySelector('.content').innerHTML = `
-                <div style="text-align: center; padding: 40px;">
-                    <h2 style="margin-bottom: 20px;">🎯 测试进行中...</h2>
-                    <div style="background: #f8f9fa; border-radius: 10px; padding: 30px; margin: 20px 0;">
-                        <h3 style="margin-bottom: 15px;">模拟测试流程</h3>
-                        <p style="margin-bottom: 10px;">1. 听力部分 (约20分钟)</p>
-                        <p style="margin-bottom: 10px;">2. 阅读部分 (约20分钟)</p>
-                        <p style="margin-bottom: 10px;">3. 写作部分 (约15分钟)</p>
-                        <p style="margin-bottom: 20px;">4. 口语部分 (约5分钟)</p>
-                        <div style="height: 20px; background: #e9ecef; border-radius: 10px; overflow: hidden;">
-                            <div id="progressBar" style="height: 100%; width: 0%; background: #28a745; transition: width 0.5s;"></div>
-                        </div>
-                        <p id="progressText" style="margin-top: 10px;">准备开始...</p>
+            showTestQuestion();
+        }
+
+        // 生成题目顺序
+        function generateQuestionOrder() {
+            const order = [];
+            
+            // 添加词汇题
+            testQuestions.vocabulary.forEach(q => {
+                order.push({ type: 'vocabulary', id: q.id });
+            });
+            
+            // 添加语法题
+            testQuestions.grammar.forEach(q => {
+                order.push({ type: 'grammar', id: q.id });
+            });
+            
+            // 添加阅读题
+            testQuestions.reading.forEach(q => {
+                order.push({ type: 'reading', id: q.id });
+            });
+            
+            // 随机排序
+            return order.sort(() => Math.random() - 0.5);
+        }
+
+        // 显示测试题目
+        function showTestQuestion() {
+            if (currentTest.currentQuestion >= currentTest.questionOrder.length) {
+                completeTest();
+                return;
+            }
+            
+            const questionInfo = currentTest.questionOrder[currentTest.currentQuestion];
+            let question;
+            
+            // 根据类型获取题目
+            if (questionInfo.type === 'vocabulary') {
+                question = testQuestions.vocabulary.find(q => q.id === questionInfo.id);
+            } else if (questionInfo.type === 'grammar') {
+                question = testQuestions.grammar.find(q => q.id === questionInfo.id);
+            } else {
+                question = testQuestions.reading.find(q => q.id === questionInfo.id);
+            }
+            
+            // 显示题目
+            let questionHTML = '';
+            
+            if (questionInfo.type === 'reading') {
+                questionHTML = `
+                    <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 10px;">📖 阅读段落</h4>
+                        <p style="line-height: 1.6;">${question.passage}</p>
                     </div>
-                    <button class="btn btn-secondary" onclick="cancelTest()">取消测试</button>
+                `;
+            }
+            
+            questionHTML += `
+                <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span style="background: #667eea; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.9rem;">
+                            ${questionInfo.type === 'vocabulary' ? '词汇题' : questionInfo.type === 'grammar' ? '语法题' : '阅读题'}
+                        </span>
+                        <span style="color: #666;">难度: ${question.difficulty}</span>
+                    </div>
+                    
+                    <h4 style="margin-bottom: 15px;">${question.question}</h4>
+                    
+                    <div id="optionsContainer" style="margin-bottom: 20px;">
+                        ${question.options.map((option, index) => `
+                            <div style="margin-bottom: 10px;">
+                                <label style="display: flex; align-items: flex-start; cursor: pointer; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; transition: all 0.3s;">
+                                    <input type="radio" name="answer" value="${index}" style="margin-right: 10px; margin-top: 3px;" onclick="selectAnswer(${index})">
+                                    <span>${String.fromCharCode(65 + index)}. ${option}</span>
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="color: #666;">
+                            题目 ${currentTest.currentQuestion + 1} / ${currentTest.questionOrder.length}
+                        </div>
+                        <button class="btn btn-primary" onclick="submitAnswer()" id="submitBtn" disabled>
+                            提交答案
+                        </button>
+                    </div>
                 </div>
             `;
             
-            // 模拟测试进度
-            simulateTest();
+            document.querySelector('.content').innerHTML = `
+                <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+                    <h2 style="margin-bottom: 20px; text-align: center;">📝 CAT自适应测试</h2>
+                    ${questionHTML}
+                </div>
+            `;
         }
-        
-        // 模拟测试进度
-        function simulateTest() {
-            const progressBar = document.getElementById('progressBar');
-            const progressText = document.getElementById('progressText');
-            let progress = 0;
+
+        // 选择答案
+        function selectAnswer(index) {
+            // 移除其他选项的选中样式
+            document.querySelectorAll('label').forEach(label => {
+                label.style.borderColor = '#e9ecef';
+                label.style.background = 'white';
+            });
             
-            const steps = [
-                { text: '准备测试环境...', time: 1000 },
-                { text: '听力部分进行中...', time: 2000 },
-                { text: '阅读部分进行中...', time: 2000 },
-                { text: '写作部分进行中...', time: 1500 },
-                { text: '口语部分进行中...', time: 1000 },
-                { text: '评分和分析中...', time: 1500 }
-            ];
+            // 添加当前选项的选中样式
+            const selectedLabel = document.querySelector(`input[value="${index}"]`).parentElement;
+            selectedLabel.style.borderColor = '#667eea';
+            selectedLabel.style.background = '#f0f4ff';
             
-            let stepIndex = 0;
+            // 启用提交按钮
+            document.getElementById('submitBtn').disabled = false;
             
-            function nextStep() {
-                if (stepIndex >= steps.length) {
-                    completeTest();
-                    return;
-                }
-                
-                const step = steps[stepIndex];
-                progressText.textContent = step.text;
-                progress += 100 / steps.length;
-                progressBar.style.width = progress + '%';
-                
-                stepIndex++;
-                setTimeout(nextStep, step.time);
+            // 保存选择的答案
+            currentTest.selectedAnswer = index;
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const questionInfo = currentTest.questionOrder[currentTest.currentQuestion];
+            let question;
+            
+            if (questionInfo.type === 'vocabulary') {
+                question = testQuestions.vocabulary.find(q => q.id === questionInfo.id);
+            } else if (questionInfo.type === 'grammar') {
+                question = testQuestions.grammar.find(q => q.id === questionInfo.id);
+            } else {
+                question = testQuestions.reading.find(q => q.id === questionInfo.id);
             }
             
-            nextStep();
+            // 检查答案
+            const isCorrect = currentTest.selectedAnswer === question.correct;
+            
+            // 保存答案记录
+            currentTest.answers.push({
+                questionId: question.id,
+                type: questionInfo.type,
+                selectedAnswer: currentTest.selectedAnswer,
+                correctAnswer: question.correct,
+                isCorrect: isCorrect,
+                difficulty: question.difficulty,
+                topic: question.topic
+            });
+            
+            // 更新分数
+            if (isCorrect) {
+                currentTest.score++;
+            }
+            
+            // 显示答案反馈
+            showAnswerFeedback(question, isCorrect);
         }
-        
+
+        // 显示答案反馈
+        function showAnswerFeedback(question, isCorrect) {
+            const feedbackHTML = `
+                <div style="background: ${isCorrect ? '#d4edda' : '#f8d7da'}; border: 1px solid ${isCorrect ? '#c3e6cb' : '#f5c6cb'}; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <div style="width: 40px; height: 40px; background: ${isCorrect ? '#28a745' : '#dc3545'}; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-right: 15px;">
+                            ${isCorrect ? '✓' : '✗'}
+                        </div>
+                        <div>
+                            <h4 style="margin: 0; color: ${isCorrect ? '#155724' : '#721c24'}">
+                                ${isCorrect ? '回答正确！' : '回答错误'}
+                            </h4>
+                            <p style="margin: 5px 0 0 0; color: ${isCorrect ? '#155724' : '#721c24'}">
+                                正确答案: ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 8px; padding: 15px;">
+                        <h5 style="margin-bottom: 10px; color: #495057;">📚 解析</h5>
+                        <p style="margin: 0; line-height: 1.6;">${question.explanation}</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <button class="btn btn-primary" onclick="nextQuestion()">
+                        下一题
+                    </button>
+                </div>
+            `;
+            
+            document.querySelector('.content').innerHTML = `
+                <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+                    <h2 style="margin-bottom: 20px; text-align: center;">📝 答案反馈</h2>
+                    ${feedbackHTML}
+                </div>
+            `;
+        }
+
+        // 下一题
+        function nextQuestion() {
+            currentTest.currentQuestion++;
+            showTestQuestion();
+        }
+
         // 完成测试
         function completeTest() {
             const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
@@ -395,50 +737,72 @@
                 localStorage.setItem('ieltsCatRemainingTests', remainingTests.toString());
             }
             
-            // 生成随机分数
-            const scores = {
-                listening: 5.5 + Math.random() * 2,
-                reading: 6.0 + Math.random() * 2,
-                writing: 5.0 + Math.random() * 2,
-                speaking: 5.5 + Math.random() * 2
-            };
+            // 计算分数
+            const totalQuestions = currentTest.questionOrder.length;
+            const correctAnswers = currentTest.score;
+            const scorePercentage = (correctAnswers / totalQuestions) * 100;
             
-            const totalScore = (scores.listening + scores.reading + scores.writing + scores.speaking) / 4;
+            // 根据百分比转换为雅思分数
+            const ieltsScore = calculateIELTSScore(scorePercentage);
+            
+            // 分析表现
+            const analysis = analyzePerformance(currentTest.answers);
             
             // 显示结果
             document.querySelector('.content').innerHTML = `
                 <div style="text-align: center; padding: 30px;">
                     <h2 style="margin-bottom: 20px;">🎉 测试完成！</h2>
+                    
                     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; padding: 30px; margin: 20px 0;">
-                        <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">${totalScore.toFixed(1)}</div>
-                        <div style="font-size: 1.2rem;">总体雅思分数</div>
+                        <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">${ieltsScore.toFixed(1)}</div>
+                        <div style="font-size: 1.2rem;">预估雅思分数</div>
+                        <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.9;">
+                            正确率: ${correctAnswers}/${totalQuestions} (${scorePercentage.toFixed(1)}%)
+                        </div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 25px 0;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0;">
                         <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.listening.toFixed(1)}</div>
-                            <div style="color: #666;">听力</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">
+                                ${analysis.vocabulary.correct}/${analysis.vocabulary.total}
+                            </div>
+                            <div style="color: #666;">词汇题</div>
                         </div>
                         <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.reading.toFixed(1)}</div>
-                            <div style="color: #666;">阅读</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">
+                                ${analysis.grammar.correct}/${analysis.grammar.total}
+                            </div>
+                            <div style="color: #666;">语法题</div>
                         </div>
                         <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.writing.toFixed(1)}</div>
-                            <div style="color: #666;">写作</div>
-                        </div>
-                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
-                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.speaking.toFixed(1)}</div>
-                            <div style="color: #666;">口语</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">
+                                ${analysis.reading.correct}/${analysis.reading.total}
+                            </div>
+                            <div style="color: #666;">阅读题</div>
                         </div>
                     </div>
                     
                     <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; text-align: left;">
-                        <h3 style="margin-bottom: 15px;">📋 分析报告</h3>
-                        <p style="margin-bottom: 10px;">✅ <strong>优势：</strong>阅读能力较好，词汇量充足</p>
-                        <p style="margin-bottom: 10px;">⚠️ <strong>需改进：</strong>写作语法需要加强，口语流利度可提升</p>
-                        <p style="margin-bottom: 10px;">🎯 <strong>建议：</strong>每天练习写作15分钟，重点学习复杂句式</p>
-                        <p>📚 <strong>学习资源：</strong>访问<a href="../learn/" style="color: #667eea; text-decoration: none;">免费学习工具</a>加强词汇和发音</p>
+                        <h3 style="margin-bottom: 15px;">📋 详细分析报告</h3>
+                        
+                        <h4 style="margin-bottom: 10px; color: #495057;">✅ 优势领域</h4>
+                        <ul style="margin-bottom: 15px; padding-left: 20px;">
+                            ${analysis.strengths.map(strength => `<li>${strength}</li>`).join('')}
+                        </ul>
+                        
+                        <h4 style="margin-bottom: 10px; color: #495057;">⚠️ 需改进领域</h4>
+                        <ul style="margin-bottom: 15px; padding-left: 20px;">
+                            ${analysis.weaknesses.map(weakness => `<li>${weakness}</li>`).join('')}
+                        </ul>
+                        
+                        <h4 style="margin-bottom: 10px; color: #495057;">🎯 学习建议</h4>
+                        <ul style="margin-bottom: 15px; padding-left: 20px;">
+                            ${analysis.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                        </ul>
+                        
+                        <p style="margin: 0; color: #666;">
+                            📚 <strong>学习资源：</strong>访问<a href="../learn/" style="color: #667eea; text-decoration: none;">免费学习工具</a>加强词汇和发音
+                        </p>
                     </div>
                     
                     <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
@@ -457,6 +821,86 @@
                     ` : ''}
                 </div>
             `;
+        }
+
+        // 计算雅思分数
+        function calculateIELTSScore(percentage) {
+            if (percentage >= 90) return 9.0;
+            if (percentage >= 80) return 8.0;
+            if (percentage >= 70) return 7.0;
+            if (percentage >= 60) return 6.0;
+            if (percentage >= 50) return 5.5;
+            if (percentage >= 40) return 5.0;
+            if (percentage >= 30) return 4.5;
+            if (percentage >= 20) return 4.0;
+            if (percentage >= 10) return 3.5;
+            return 3.0;
+        }
+
+        // 分析表现
+        function analyzePerformance(answers) {
+            const analysis = {
+                vocabulary: { correct: 0, total: 0 },
+                grammar: { correct: 0, total: 0 },
+                reading: { correct: 0, total: 0 },
+                strengths: [],
+                weaknesses: [],
+                recommendations: []
+            };
+            
+            // 统计各类型题目
+            answers.forEach(answer => {
+                if (answer.type === 'vocabulary') {
+                    analysis.vocabulary.total++;
+                    if (answer.isCorrect) analysis.vocabulary.correct++;
+                } else if (answer.type === 'grammar') {
+                    analysis.grammar.total++;
+                    if (answer.isCorrect) analysis.grammar.correct++;
+                } else if (answer.type === 'reading') {
+                    analysis.reading.total++;
+                    if (answer.isCorrect) analysis.reading.correct++;
+                }
+            });
+            
+            // 分析优势
+            if (analysis.vocabulary.total > 0 && analysis.vocabulary.correct / analysis.vocabulary.total >= 0.7) {
+                analysis.strengths.push("词汇量较好，能够理解学术词汇");
+            }
+            if (analysis.grammar.total > 0 && analysis.grammar.correct / analysis.grammar.total >= 0.7) {
+                analysis.strengths.push("语法基础扎实，能够正确使用复杂句式");
+            }
+            if (analysis.reading.total > 0 && analysis.reading.correct / analysis.reading.total >= 0.7) {
+                analysis.strengths.push("阅读理解能力良好，能够快速获取关键信息");
+            }
+            
+            // 分析弱点
+            if (analysis.vocabulary.total > 0 && analysis.vocabulary.correct / analysis.vocabulary.total < 0.5) {
+                analysis.weaknesses.push("词汇量需要扩展，特别是学术词汇");
+                analysis.recommendations.push("每天学习20个新词汇，重点记忆学术词汇");
+            }
+            if (analysis.grammar.total > 0 && analysis.grammar.correct / analysis.grammar.total < 0.5) {
+                analysis.weaknesses.push("语法知识需要加强，特别是时态和从句");
+                analysis.recommendations.push("每天练习10个语法题，重点学习时态和从句结构");
+            }
+            if (analysis.reading.total > 0 && analysis.reading.correct / analysis.reading.total < 0.5) {
+                analysis.weaknesses.push("阅读速度和理解能力需要提升");
+                analysis.recommendations.push("每天阅读一篇学术文章，练习快速获取关键信息");
+            }
+            
+            // 如果没有弱点，添加通用建议
+            if (analysis.weaknesses.length === 0) {
+                analysis.recommendations.push("继续保持良好学习习惯，每天坚持学习30分钟");
+                analysis.recommendations.push("尝试挑战更高难度的题目，提升综合能力");
+            }
+            
+            return analysis;
+        }
+
+        // 取消测试
+        function cancelTest() {
+            if (confirm('确定要取消测试吗？取消后不会扣除测试次数。')) {
+                location.reload();
+            }
         }
         
         // 取消测试
