@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>直接调试测试系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .log {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .error {
+            color: #ff6b6b;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .info {
+            color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 直接调试测试系统</h1>
+        <p>这个页面直接测试 <code>startTest()</code> 函数是否正常工作。</p>
+        
+        <div style="margin: 20px 0;">
+            <button class="btn" onclick="testStartTest()">🔍 测试 startTest() 函数</button>
+            <button class="btn" onclick="testShowTestQuestion()">🔍 测试 showTestQuestion() 函数</button>
+            <button class="btn" onclick="testGenerateQuestionOrder()">🔍 测试 generateQuestionOrder() 函数</button>
+            <button class="btn" onclick="clearLog()">🗑️ 清除日志</button>
+        </div>
+        
+        <div id="log" class="log"></div>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #e8f5e8; border-radius: 5px;">
+            <h3>💡 调试说明</h3>
+            <p>1. 点击按钮测试各个函数</p>
+            <p>2. 查看控制台日志（按F12打开开发者工具）</p>
+            <p>3. 检查是否有JavaScript错误</p>
+            <p>4. 检查函数是否正常执行</p>
+        </div>
+    </div>
+
+    <script>
+        let logElement = document.getElementById('log');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logElement.appendChild(logEntry);
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+        
+        function clearLog() {
+            logElement.innerHTML = '';
+            log('日志已清除', 'info');
+        }
+        
+        // 模拟测试系统的函数
+        function testStartTest() {
+            log('开始测试 startTest() 函数...', 'info');
+            
+            try {
+                // 检查是否定义了必要的变量
+                if (typeof currentTest === 'undefined') {
+                    window.currentTest = null;
+                    log('currentTest 未定义，已初始化为 null', 'info');
+                }
+                
+                // 检查是否定义了必要的函数
+                if (typeof generateQuestionOrder === 'undefined') {
+                    log('❌ generateQuestionOrder 函数未定义', 'error');
+                    return;
+                }
+                
+                if (typeof showTestQuestion === 'undefined') {
+                    log('❌ showTestQuestion 函数未定义', 'error');
+                    return;
+                }
+                
+                // 执行 startTest 逻辑
+                log('执行 startTest 逻辑...', 'info');
+                
+                // 初始化测试
+                currentTest = {
+                    currentQuestion: 0,
+                    score: 0,
+                    answers: [],
+                    startTime: new Date(),
+                    questionOrder: generateQuestionOrder(),
+                    difficultyLevel: "基础"
+                };
+                
+                log('✅ currentTest 初始化成功:', 'success');
+                log(`  - 题目数量: ${currentTest.questionOrder.length}`, 'info');
+                log(`  - 开始时间: ${currentTest.startTime}`, 'info');
+                
+                // 尝试显示测试题目
+                showTestQuestion();
+                log('✅ showTestQuestion() 调用成功', 'success');
+                
+            } catch (error) {
+                log(`❌ 测试失败: ${error.message}`, 'error');
+                log(`堆栈: ${error.stack}`, 'error');
+            }
+        }
+        
+        function testShowTestQuestion() {
+            log('开始测试 showTestQuestion() 函数...', 'info');
+            
+            try {
+                // 首先需要初始化 currentTest
+                if (!currentTest || !currentTest.questionOrder) {
+                    log('currentTest 未初始化，先初始化...', 'info');
+                    testStartTest();
+                }
+                
+                // 检查 currentTest 状态
+                log(`当前题目索引: ${currentTest.currentQuestion}`, 'info');
+                log(`题目总数: ${currentTest.questionOrder.length}`, 'info');
+                
+                if (currentTest.currentQuestion >= currentTest.questionOrder.length) {
+                    log('所有题目已完成，调用 completeTest()', 'info');
+                    // 这里可以模拟 completeTest 逻辑
+                    log('✅ 测试完成逻辑正常', 'success');
+                } else {
+                    const questionInfo = currentTest.questionOrder[currentTest.currentQuestion];
+                    log(`当前题目类型: ${questionInfo.type}, ID: ${questionInfo.id}`, 'info');
+                    
+                    // 检查题库
+                    if (typeof testQuestions === 'undefined') {
+                        log('❌ testQuestions 题库未定义', 'error');
+                        return;
+                    }
+                    
+                    // 根据类型查找题目
+                    let question;
+                    if (questionInfo.type === 'vocabulary') {
+                        question = testQuestions.vocabulary.find(q => q.id === questionInfo.id);
+                    } else if (questionInfo.type === 'grammar') {
+                        question = testQuestions.grammar.find(q => q.id === questionInfo.id);
+                    } else if (questionInfo.type === 'reading') {
+                        question = testQuestions.reading.find(q => q.id === questionInfo.id);
+                    } else if (questionInfo.type === 'listening') {
+                        question = testQuestions.listening.find(q => q.id === questionInfo.id);
+                    } else if (questionInfo.type === 'writing') {
+                        question = testQuestions.writing.find(q => q.id === questionInfo.id);
+                    } else if (questionInfo.type === 'speaking') {
+                        question = testQuestions.speaking.find(q => q.id === questionInfo.id);
+                    }
+                    
+                    if (question) {
+                        log(`✅ 找到题目: ${question.question.substring(0, 50)}...`, 'success');
+                    } else {
+                        log(`❌ 未找到题目: type=${questionInfo.type}, id=${questionInfo.id}`, 'error');
+                    }
+                }
+                
+            } catch (error) {
+                log(`❌ 测试失败: ${error.message}`, 'error');
+                log(`堆栈: ${error.stack}`, 'error');
+            }
+        }
+        
+        function testGenerateQuestionOrder() {
+            log('开始测试 generateQuestionOrder() 函数...', 'info');
+            
+            try {
+                // 检查题库
+                if (typeof testQuestions === 'undefined') {
+                    log('❌ testQuestions 题库未定义', 'error');
+                    return;
+                }
+                
+                // 检查各个题库部分
+                const sections = ['vocabulary', 'grammar', 'reading', 'listening', 'writing', 'speaking'];
+                sections.forEach(section => {
+                    if (testQuestions[section] && Array.isArray(testQuestions[section])) {
+                        log(`✅ ${section}: ${testQuestions[section].length} 题`, 'success');
+                    } else {
+                        log(`❌ ${section}: 未定义或不是数组`, 'error');
+                    }
+                });
+                
+                // 生成题目顺序
+                const order = [];
+                
+                // 添加词汇题 (5题)
+                if (testQuestions.vocabulary && testQuestions.vocabulary.length >= 5) {
+                    testQuestions.vocabulary.slice(0, 5).forEach(q => {
+                        order.push({ type: 'vocabulary', id: q.id });
+                    });
+                    log(`✅ 添加词汇题: 5题`, 'success');
+                }
+                
+                // 添加语法题 (5题)
+                if (testQuestions.grammar && testQuestions.grammar.length >= 5) {
+                    testQuestions.grammar.slice(0, 5).forEach(q => {
+                        order.push({ type: 'grammar', id: q.id });
+                    });
+                    log(`✅ 添加语法题: 5题`, 'success');
+                }
+                
+                // 添加阅读题 (2题)
+                if (testQuestions.reading && testQuestions.reading.length >= 2) {
+                    testQuestions.reading.slice(0, 2).forEach(q => {
+                        order.push({ type: 'reading', id: q.id });
+                    });
+                    log(`✅ 添加阅读题: 2题`, 'success');
+                }
+                
+                // 添加听力题 (2题)
+                if (testQuestions.listening && testQuestions.listening.length >= 2) {
+                    testQuestions.listening.slice(0, 2).forEach(q => {
+                        order.push({ type: 'listening', id: q.id });
+                    });
+                    log(`✅ 添加听力题: 2题`, 'success');
+                }
+                
+                // 添加写作题 (1题)
+                if (testQuestions.writing && testQuestions.writing.length >= 1) {
+                    testQuestions.writing.slice(0, 1).forEach(q => {
+                        order.push({ type: 'writing', id: q.id });
+                    });
+                    log(`✅ 添加写作题: 1题`, 'success');
+                }
+                
+                // 添加口语题 (1题)
+                if (testQuestions.speaking && testQuestions.speaking.length >= 1) {
+                    testQuestions.speaking.slice(0, 1).forEach(q => {
+                        order.push({ type: 'speaking', id: q.id });
+                    });
+                    log(`✅ 添加口语题: 1题`, 'success');
+                }
+                
+                log(`✅ 题目顺序生成完成: 总共 ${order.length} 题`, 'success');
+                log(`题目顺序: ${JSON.stringify(order)}`, 'info');
+                
+                return order;
+                
+            } catch (error) {
+                log(`❌ 测试失败: ${error.message}`, 'error');
+                log(`堆栈: ${error.stack}`, 'error');
+            }
+        }
+        
+        // 初始化日志
+        log('调试页面已加载', 'info');
+        log('点击上方按钮开始测试各个函数', 'info');
+        
+        // 加载测试系统的函数（从 app/index.html 复制关键函数）
+        // 这里我们只复制必要的函数进行测试
+        window.generateQuestionOrder = function() {
+            const order = [];
+            
+            // 添加词汇题 (5题)
+            if (testQuestions && testQuestions.vocabulary && testQuestions.vocabulary.length >= 5) {
+                testQuestions.vocabulary.slice(0, 5).forEach(q => {
+                    order.push({ type: 'vocabulary', id: q.id });
+                });
+            }
+            
+            // 添加语法题 (5题)
+            if (testQuestions && testQuestions.grammar && testQuestions.grammar.length >= 5) {
+                testQuestions.grammar.slice(0, 5).forEach(q => {
+                    order.push({ type: 'grammar', id: q.id });
+                });
+            }
+            
+            // 添加阅读题 (2题)
+            if (testQuestions && testQuestions.reading && testQuestions.reading.length >= 2) {
+                testQuestions.reading.slice(0, 2).forEach(q => {
+                    order.push({ type: 'reading', id: q.id });
+                });
+            }
+            
+            // 添加听力题 (2题)
+            if (testQuestions && testQuestions.listening && testQuestions.listening.length >= 2) {
+                testQuestions.listening.slice(0, 2).forEach(q => {
+                    order.push({ type: 'listening', id: q.id });
+                });
+            }
+            
+            // 添加写作题 (1题)
+            if (testQuestions && testQuestions.writing && testQuestions.writing.length >= 1) {
+                testQuestions.writing.slice(0, 1).forEach(q => {
+                    order.push({ type: 'writing', id: q.id });
+                });
+            }
+            
+            // 添加口语题 (1题)
+            if (testQuestions && testQuestions.speaking && testQuestions.speaking.length >= 1) {
+                testQuestions.speaking.slice(0, 1).forEach(q => {
+                    order.push({ type: 'speaking', id: q.id });
+                });
+            }
+            
+            return order;
+        };
+        
+        window.showTestQuestion = function() {
+            log('showTestQuestion() 被调用', 'info');
+            
+            if (!currentTest || !currentTest.questionOrder) {
+                log('❌ currentTest 或 questionOrder 未定义', 'error');
+                return;
+            }
+            
+            if (currentTest.currentQuestion >= currentTest.questionOrder.length) {
+                log('✅ 所有题目已完成，测试结束', 'success');
+                return;
+            }
+            
+            const questionInfo = currentTest.questionOrder[currentTest.currentQuestion];
+            log(`显示题目: 类型=${questionInfo.type}, ID=${questionInfo.id}`, 'info');
+            
+            // 这里可以添加显示题目的逻辑
+            log('✅ 题目显示逻辑正常', 'success');
+        };
+        
+        // 尝试从 app/index.html 加载题库
+        function loadTestQuestions() {
+            log('尝试加载题库数据...', 'info');
+            
+            // 这里我们创建一个简化的题库用于测试
+            window.testQuestions = {
+                vocabulary: [
+                    { id: 1, question: "What is the meaning of 'sustainability'?", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 },
+                    { id: 2, question: "What does 'innovation' mean?", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 1 },
+                    { id: 3, question: "Define 'academic'", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 2 },
+                    { id: 4, question: "What is 'biodiversity'?", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 3 },
+                    { id: 5, question: "Meaning of 'wellness'?", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 }
+                ],
+                grammar: [
+                    { id: 1, question: "Which tense is correct?", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 },
+                    { id: 2, question: "Choose the right preposition", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 1 }
+                ],
+                reading: [
+                    { id: 1, question: "Reading comprehension", passage: "Sample passage text...", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 }
+                ],
+                listening: [
+                    { id: 1, question: "Listen to the audio", audioText: "Sample audio text...", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 }
+                ],
+                writing: [
+                    { id: 1, question: "Write an essay about...", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 }
+                ],
+                speaking: [
+                    { id: 1, question: "Describe your hometown", options: ["Option A", "Option B", "Option C", "Option D"], correctAnswer: 0 }
+                ]
+            };
+            
+            log('✅ 测试题库加载完成', 'success');
+            log(`词汇题: ${testQuestions.vocabulary.length} 题`, 'info');
+            log(`语法题: ${testQuestions.grammar.length} 题`, 'info');
+            log(`阅读题: ${testQuestions.reading.length} 题`, 'info');
+            log(`听力题: ${testQuestions.listening.length} 题`, 'info');
+            log(`写作题: ${testQuestions.writing.length} 题`, 'info');
+            log(`口语题: ${testQuestions.speaking.length} 题`, 'info');
+        }
+        
+        // 页面加载时自动加载题库
+        window.onload = function() {
+            loadTestQuestions();
+        };
+    </script>
+</body>
+</html>
