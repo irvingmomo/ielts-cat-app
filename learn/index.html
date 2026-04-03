@@ -444,19 +444,19 @@
             <div id="vocabulary" class="section">
                 <input type="text" class="search-box" placeholder="🔍 搜索词汇 (英文/中文/例句)" oninput="searchVocabulary(this.value)">
                 
-                <div class="filters">
-                    <button class="filter-btn active" onclick="filterByTopic('all')">全部话题</button>
-                    <button class="filter-btn" onclick="filterByTopic('education')">教育</button>
-                    <button class="filter-btn" onclick="filterByTopic('technology')">科技</button>
-                    <button class="filter-btn" onclick="filterByTopic('environment')">环境</button>
-                    <button class="filter-btn" onclick="filterByTopic('health')">健康</button>
+                <div class="filters" id="topic-filters">
+                    <button class="filter-btn active" onclick="filterByTopic('all', this)">全部话题</button>
+                    <button class="filter-btn" onclick="filterByTopic('education', this)">教育</button>
+                    <button class="filter-btn" onclick="filterByTopic('technology', this)">科技</button>
+                    <button class="filter-btn" onclick="filterByTopic('environment', this)">环境</button>
+                    <button class="filter-btn" onclick="filterByTopic('health', this)">健康</button>
                 </div>
-                
-                <div class="filters">
-                    <button class="filter-btn active" onclick="filterByDifficulty('all')">全部难度</button>
-                    <button class="filter-btn" onclick="filterByDifficulty('基础')">基础</button>
-                    <button class="filter-btn" onclick="filterByDifficulty('中等')">中等</button>
-                    <button class="filter-btn" onclick="filterByDifficulty('高级')">高级</button>
+
+                <div class="filters" id="difficulty-filters">
+                    <button class="filter-btn active" onclick="filterByDifficulty('all', this)">全部难度</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('基础', this)">基础</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('中等', this)">中等</button>
+                    <button class="filter-btn" onclick="filterByDifficulty('高级', this)">高级</button>
                 </div>
                 
                 <div id="vocabularyList" class="vocabulary-list">
@@ -1098,28 +1098,28 @@
         }
 
         // 按话题筛选
-        function filterByTopic(topic) {
+        function filterByTopic(topic, btn) {
             currentTopic = topic;
-            
+
             // 更新按钮状态
-            document.querySelectorAll('.filters:first-child .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
+            document.querySelectorAll('#topic-filters .filter-btn').forEach(b => {
+                b.classList.remove('active');
             });
-            event.target.classList.add('active');
-            
+            if (btn) btn.classList.add('active');
+
             loadVocabulary();
         }
 
         // 按难度筛选
-        function filterByDifficulty(difficulty) {
+        function filterByDifficulty(difficulty, btn) {
             currentDifficulty = difficulty;
-            
+
             // 更新按钮状态
-            document.querySelectorAll('.filters:nth-child(2) .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
+            document.querySelectorAll('#difficulty-filters .filter-btn').forEach(b => {
+                b.classList.remove('active');
             });
-            event.target.classList.add('active');
-            
+            if (btn) btn.classList.add('active');
+
             loadVocabulary();
         }
 

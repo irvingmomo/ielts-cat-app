@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雅思猫测试 - 绝对能工作版本</title>
+    <title>雅思猫 - CAT自适应测试</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: white;
-            text-align: center;
+            padding: 20px;
+            color: #333;
         }
         
         .container {
@@ -19,503 +24,508 @@
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            padding: 30px;
-            color: #333;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-        
-        .test-button {
-            padding: 20px 40px;
-            font-size: 24px;
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 30px 0;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-weight: bold;
-        }
-        
-        .test-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
-        }
-        
-        .test-button:active {
-            transform: translateY(-1px);
-        }
-        
-        .status {
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-family: monospace;
-            text-align: left;
-            background: #f8f9fa;
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .status.error {
-            border-left-color: #dc3545;
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .status.success {
-            border-left-color: #28a745;
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .test-interface {
-            display: none;
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            text-align: left;
-        }
-        
-        .question {
-            font-size: 18px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .option {
-            padding: 12px;
-            margin: 8px 0;
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .option:hover {
-            border-color: #667eea;
-            background: #f0f2ff;
-        }
-        
-        .option.selected {
-            border-color: #4CAF50;
-            background: #e8f5e8;
-        }
-        
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        .nav-button {
-            padding: 10px 20px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .nav-button.primary {
-            background: #4CAF50;
-        }
-        
-        .progress {
-            height: 6px;
-            background: #e9ecef;
-            border-radius: 3px;
-            margin: 20px 0;
             overflow: hidden;
         }
         
-        .progress-bar {
-            height: 100%;
-            background: #4CAF50;
-            width: 0%;
-            transition: width 0.3s;
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .test-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .test-info h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .test-info p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .quota-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .quota-value {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .quota-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .premium-badge {
+            background: #ffc107;
+            color: #856404;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .test-section {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .test-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .test-section p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #218838;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-disabled {
+            background: #e9ecef;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .upgrade-section {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            color: #856404;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .upgrade-section h3 {
+            margin-bottom: 15px;
+        }
+        
+        .upgrade-section ul {
+            text-align: left;
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        
+        .upgrade-section li {
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            background: #f8f9fa;
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .quota-value {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎯 雅思猫测试系统 - 绝对能工作版本</h1>
-        <p>这个版本移除了所有复杂逻辑，确保按钮100%能点击</p>
-        
-        <div class="status" id="status">
-            页面加载完成，等待点击测试按钮...
+        <div class="header">
+            <h1>🐱 雅思猫 CAT测试</h1>
+            <p>自适应模拟测试 - 精准评估你的雅思水平</p>
         </div>
         
-        <!-- 核心测试按钮 -->
-        <button class="test-button" id="startTestBtn" onclick="startTest()">
-            🚀 点击这里开始测试（绝对能工作）
-        </button>
-        
-        <div style="margin: 20px 0; padding: 15px; background: #e8f5e8; border-radius: 8px;">
-            <p><strong>💡 提示：</strong> 这个按钮使用最简单的 onclick 事件，确保100%能响应点击</p>
-            <p>点击后会在下方显示测试界面</p>
-        </div>
-        
-        <!-- 测试界面 -->
-        <div class="test-interface" id="testInterface">
-            <div class="question" id="questionText">
-                加载题目中...
+        <div class="content">
+            <!-- 测试配额显示 -->
+            <div class="quota-card" id="quotaCard">
+                <div class="quota-value" id="remainingTests">1</div>
+                <div class="quota-label">今日剩余免费测试次数</div>
+                <p style="margin-top: 10px; font-size: 0.9rem;">免费测试：每天1次，仅在完成测试后扣除</p>
             </div>
             
-            <div id="optionsContainer">
-                <!-- 选项会动态生成 -->
+            <!-- 高级用户徽章 -->
+            <div id="premiumBadge" style="display: none;">
+                <div class="premium-badge">🎉 高级用户 - 无限测试</div>
             </div>
             
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
+            <!-- 测试信息 -->
+            <div class="test-info">
+                <h3>📋 测试说明</h3>
+                <p>• 测试时长：约60分钟（听力+阅读+写作+口语）</p>
+                <p>• 自适应难度：根据你的表现动态调整题目难度</p>
+                <p>• 即时评分：测试完成后立即获得分数和分析</p>
+                <p>• 详细报告：识别薄弱环节，提供针对性建议</p>
             </div>
             
-            <div class="navigation">
-                <button class="nav-button" id="prevBtn" onclick="prevQuestion()" disabled>上一题</button>
-                <div>
-                    <span id="questionCounter">第 1/5 题</span>
+            <!-- 测试部分 -->
+            <div class="test-section">
+                <h3>🎯 开始测试</h3>
+                <p>点击下方按钮开始你的雅思自适应模拟测试。测试完成后将获得详细分数报告。</p>
+                <button class="btn btn-primary" id="startTestBtn" onclick="startTest()">开始测试</button>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">注意：免费用户每天只有1次测试机会，请认真完成</p>
+            </div>
+            
+            <!-- 历史记录 -->
+            <div class="test-section">
+                <h3>📊 测试历史</h3>
+                <p>查看你之前的测试记录和进步情况。</p>
+                <button class="btn btn-secondary" id="viewHistoryBtn" onclick="viewHistory()">查看历史</button>
+                <div id="historyList" style="margin-top: 15px; display: none;">
+                    <!-- 历史记录将通过JavaScript动态加载 -->
                 </div>
-                <button class="nav-button primary" id="nextBtn" onclick="nextQuestion()">下一题</button>
+            </div>
+            
+            <!-- 升级到高级版 -->
+            <div class="upgrade-section" id="upgrade">
+                <h3>🚀 升级到高级版</h3>
+                <p>解锁无限测试和高级功能：</p>
+                <ul>
+                    <li>✅ 无限次测试（无每日限制）</li>
+                    <li>✅ 高级分析报告（详细弱点分析）</li>
+                    <li>✅ 完整历史记录（所有测试记录）</li>
+                    <li>✅ 定制学习计划（个性化建议）</li>
+                    <li>✅ 优先支持（快速问题解答）</li>
+                </ul>
+                <button class="btn btn-primary" onclick="upgradeToPremium()">立即升级 (¥25/月)</button>
+                <p style="margin-top: 15px; font-size: 0.9rem;">或先体验免费测试，满意后再升级</p>
             </div>
         </div>
         
-        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-            <h3>🔧 技术说明</h3>
-            <p><strong>为什么这个版本能工作：</strong></p>
-            <ul style="text-align: left;">
-                <li>✅ 使用最简单的 onclick 事件绑定</li>
-                <li>✅ 移除所有复杂的付费逻辑</li>
-                <li>✅ 简化JavaScript代码</li>
-                <li>✅ 添加详细的状态提示</li>
-                <li>✅ 确保函数在点击前已定义</li>
-            </ul>
-            <p><strong>如果这个按钮还不工作：</strong></p>
-            <ul style="text-align: left;">
-                <li>1. 按 F12 打开浏览器开发者工具</li>
-                <li>2. 查看 Console 标签的错误信息</li>
-                <li>3. 截图错误信息给我看</li>
-            </ul>
+        <div class="footer">
+            <p>🐱 雅思猫 - 为你的IELTS 7.5+目标而设计</p>
+            <div class="footer-links">
+                <a href="../learn/">📚 免费学习</a>
+                <a href="../#pricing">💰 查看定价</a>
+                <a href="mailto:contact@ieltscat.com">📧 联系我们</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // ========== 全局状态 ==========
-        let currentTest = {
-            currentQuestion: 0,
-            score: 0,
-            answers: [],
-            startTime: null,
-            questionOrder: [],
-            difficultyLevel: "基础"
-        };
-        
-        // 简单的题库
-        const testQuestions = [
-            {
-                id: 1,
-                question: "What is the meaning of 'sustainability'?",
-                options: [
-                    "The ability to maintain something at a certain rate or level",
-                    "The process of making something larger",
-                    "The act of destroying something completely",
-                    "The study of ancient civilizations"
-                ],
-                correctAnswer: 0,
-                explanation: "Sustainability refers to the ability to maintain ecological, economic, and social systems over time."
-            },
-            {
-                id: 2,
-                question: "What does 'innovation' mean?",
-                options: [
-                    "The act of copying something",
-                    "A new idea, method, or device",
-                    "The process of learning slowly",
-                    "Traditional way of doing things"
-                ],
-                correctAnswer: 1,
-                explanation: "Innovation is the introduction of something new or different that creates value."
-            },
-            {
-                id: 3,
-                question: "Which sentence is grammatically correct?",
-                options: [
-                    "She don't like coffee.",
-                    "She doesn't likes coffee.",
-                    "She doesn't like coffee.",
-                    "She not like coffee."
-                ],
-                correctAnswer: 2,
-                explanation: "The correct form is 'She doesn't like coffee.' (third person singular present simple negative)"
-            },
-            {
-                id: 4,
-                question: "What is the main idea of climate change?",
-                options: [
-                    "Climate change is caused by natural cycles",
-                    "Human activities are the main cause of climate change",
-                    "Climate change is not a serious problem",
-                    "Scientists disagree about climate change causes"
-                ],
-                correctAnswer: 1,
-                explanation: "Scientific consensus shows human activities are the primary cause of recent climate change."
-            },
-            {
-                id: 5,
-                question: "What does 'biodiversity' refer to?",
-                options: [
-                    "The variety of life in a particular habitat",
-                    "The study of biological clocks",
-                    "The process of biological evolution",
-                    "The classification of biological species"
-                ],
-                correctAnswer: 0,
-                explanation: "Biodiversity refers to the variety of plant and animal life in a particular habitat."
-            }
-        ];
-        
-        // ========== 核心函数 ==========
-        
-        // 开始测试 - 最简单的实现
-        function startTest() {
-            console.log('✅ startTest() 函数被调用！');
-            updateStatus('✅ startTest() 函数被成功调用！', 'success');
+        // 检查用户是否为高级用户
+        function checkPremiumStatus() {
+            const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
+            const remainingTests = localStorage.getItem('ieltsCatRemainingTests');
             
-            // 记录开始时间
-            currentTest.startTime = new Date();
-            currentTest.questionOrder = testQuestions.map(q => ({ id: q.id }));
+            if (isPremium) {
+                // 高级用户
+                document.getElementById('premiumBadge').style.display = 'block';
+                document.getElementById('quotaCard').innerHTML = `
+                    <div class="quota-value">∞</div>
+                    <div class="quota-label">高级用户 - 无限测试</div>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">🎉 享受所有高级功能</p>
+                `;
+                document.getElementById('startTestBtn').innerText = '开始测试（高级版）';
+            } else {
+                // 免费用户
+                let today = new Date().toDateString();
+                let lastReset = localStorage.getItem('ieltsCatLastReset');
+                
+                // 如果是新的一天，重置测试次数
+                if (lastReset !== today) {
+                    localStorage.setItem('ieltsCatRemainingTests', '1');
+                    localStorage.setItem('ieltsCatLastReset', today);
+                    document.getElementById('remainingTests').textContent = '1';
+                } else {
+                    // 使用保存的剩余次数
+                    document.getElementById('remainingTests').textContent = remainingTests || '1';
+                }
+            }
+        }
+        
+        // 开始测试
+        function startTest() {
+            const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
+            let remainingTests = parseInt(localStorage.getItem('ieltsCatRemainingTests') || '1');
+            
+            if (!isPremium && remainingTests <= 0) {
+                alert('❌ 今日免费测试次数已用完\n\n请明天再来，或升级到高级版享受无限测试！');
+                return;
+            }
             
             // 显示测试界面
-            document.getElementById('testInterface').style.display = 'block';
-            updateStatus('测试界面已显示，正在加载题目...', 'success');
-            
-            // 显示第一题
-            showTestQuestion();
-            
-            // 滚动到测试界面
-            document.getElementById('testInterface').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // 显示测试题目
-        function showTestQuestion() {
-            const questionIndex = currentTest.currentQuestion;
-            const totalQuestions = testQuestions.length;
-            
-            if (questionIndex >= totalQuestions) {
-                completeTest();
-                return;
-            }
-            
-            const question = testQuestions[questionIndex];
-            
-            // 更新题目文本
-            document.getElementById('questionText').textContent = question.question;
-            
-            // 生成选项
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.innerHTML = `
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid #ddd; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold;">
-                            ${String.fromCharCode(65 + index)}
+            document.querySelector('.content').innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <h2 style="margin-bottom: 20px;">🎯 测试进行中...</h2>
+                    <div style="background: #f8f9fa; border-radius: 10px; padding: 30px; margin: 20px 0;">
+                        <h3 style="margin-bottom: 15px;">模拟测试流程</h3>
+                        <p style="margin-bottom: 10px;">1. 听力部分 (约20分钟)</p>
+                        <p style="margin-bottom: 10px;">2. 阅读部分 (约20分钟)</p>
+                        <p style="margin-bottom: 10px;">3. 写作部分 (约15分钟)</p>
+                        <p style="margin-bottom: 20px;">4. 口语部分 (约5分钟)</p>
+                        <div style="height: 20px; background: #e9ecef; border-radius: 10px; overflow: hidden;">
+                            <div id="progressBar" style="height: 100%; width: 0%; background: #28a745; transition: width 0.5s;"></div>
                         </div>
-                        <div>${option}</div>
+                        <p id="progressText" style="margin-top: 10px;">准备开始...</p>
                     </div>
-                `;
-                
-                optionDiv.onclick = function() {
-                    // 移除其他选项的选中状态
-                    document.querySelectorAll('.option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    // 选中当前选项
-                    this.classList.add('selected');
-                    
-                    // 保存答案
-                    currentTest.answers[questionIndex] = index;
-                    
-                    // 启用下一题按钮
-                    document.getElementById('nextBtn').disabled = false;
-                    
-                    updateStatus(`已选择答案: ${String.fromCharCode(65 + index)}`, 'success');
-                };
-                
-                optionsContainer.appendChild(optionDiv);
-            });
+                    <button class="btn btn-secondary" onclick="cancelTest()">取消测试</button>
+                </div>
+            `;
             
-            // 更新进度
-            const progress = ((questionIndex + 1) / totalQuestions) * 100;
-            document.getElementById('progressBar').style.width = `${progress}%`;
-            document.getElementById('questionCounter').textContent = `第 ${questionIndex + 1}/${totalQuestions} 题`;
+            // 模拟测试进度
+            simulateTest();
+        }
+        
+        // 模拟测试进度
+        function simulateTest() {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            let progress = 0;
             
-            // 更新按钮状态
-            document.getElementById('prevBtn').disabled = questionIndex === 0;
+            const steps = [
+                { text: '准备测试环境...', time: 1000 },
+                { text: '听力部分进行中...', time: 2000 },
+                { text: '阅读部分进行中...', time: 2000 },
+                { text: '写作部分进行中...', time: 1500 },
+                { text: '口语部分进行中...', time: 1000 },
+                { text: '评分和分析中...', time: 1500 }
+            ];
             
-            // 如果之前已回答过，恢复选择
-            if (currentTest.answers[questionIndex] !== undefined) {
-                const options = document.querySelectorAll('.option');
-                if (options[currentTest.answers[questionIndex]]) {
-                    options[currentTest.answers[questionIndex]].classList.add('selected');
-                    document.getElementById('nextBtn').disabled = false;
+            let stepIndex = 0;
+            
+            function nextStep() {
+                if (stepIndex >= steps.length) {
+                    completeTest();
+                    return;
                 }
-            } else {
-                document.getElementById('nextBtn').disabled = true;
+                
+                const step = steps[stepIndex];
+                progressText.textContent = step.text;
+                progress += 100 / steps.length;
+                progressBar.style.width = progress + '%';
+                
+                stepIndex++;
+                setTimeout(nextStep, step.time);
             }
             
-            updateStatus(`显示第 ${questionIndex + 1}/${totalQuestions} 题`, 'success');
-        }
-        
-        // 下一题
-        function nextQuestion() {
-            if (currentTest.currentQuestion >= testQuestions.length - 1) {
-                completeTest();
-                return;
-            }
-            
-            currentTest.currentQuestion++;
-            showTestQuestion();
-        }
-        
-        // 上一题
-        function prevQuestion() {
-            if (currentTest.currentQuestion > 0) {
-                currentTest.currentQuestion--;
-                showTestQuestion();
-            }
+            nextStep();
         }
         
         // 完成测试
         function completeTest() {
-            // 计算分数
-            let correctCount = 0;
-            currentTest.answers.forEach((answer, index) => {
-                if (answer === testQuestions[index].correctAnswer) {
-                    correctCount++;
-                }
-            });
+            const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
             
-            const totalQuestions = testQuestions.length;
-            const score = Math.round((correctCount / totalQuestions) * 100);
-            const timeSpent = Math.round((new Date() - currentTest.startTime) / 1000);
-            
-            // 显示结果
-            document.getElementById('testInterface').innerHTML = `
-                <div style="text-align: center; padding: 30px;">
-                    <h2 style="color: #4CAF50; margin-bottom: 20px;">🎉 测试完成！</h2>
-                    <div style="font-size: 3rem; font-weight: bold; color: #4CAF50; margin-bottom: 20px;">
-                        ${score}分
-                    </div>
-                    <div style="background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; text-align: left;">
-                        <p><strong>📊 测试结果：</strong></p>
-                        <p>✅ 正确：${correctCount} 题</p>
-                        <p>❌ 错误：${totalQuestions - correctCount} 题</p>
-                        <p>📈 正确率：${score}%</p>
-                        <p>⏱️ 用时：${timeSpent} 秒</p>
-                    </div>
-                    <div style="margin-top: 20px;">
-                        <button class="nav-button primary" onclick="location.reload()" style="margin-right: 10px;">
-                            🔄 重新测试
-                        </button>
-                        <button class="nav-button" onclick="showAnswers()">
-                            📖 查看答案
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            updateStatus(`✅ 测试完成！得分: ${score}分`, 'success');
-        }
-        
-        // 查看答案
-        function showAnswers() {
-            let answersHTML = '<h3>📖 正确答案与解析</h3>';
-            
-            testQuestions.forEach((question, index) => {
-                const userAnswer = currentTest.answers[index];
-                const isCorrect = userAnswer === question.correctAnswer;
-                
-                answersHTML += `
-                    <div style="background: ${isCorrect ? '#e8f5e8' : '#f8d7da'}; border-radius: 8px; padding: 15px; margin-bottom: 15px; border-left: 4px solid ${isCorrect ? '#4CAF50' : '#dc3545'};">
-                        <p><strong>第 ${index + 1} 题：</strong> ${question.question}</p>
-                        <p><strong>你的答案：</strong> ${userAnswer !== undefined ? String.fromCharCode(65 + userAnswer) : '未回答'}</p>
-                        <p><strong>正确答案：</strong> ${String.fromCharCode(65 + question.correctAnswer)}</p>
-                        <p><strong>解析：</strong> ${question.explanation}</p>
-                    </div>
-                `;
-            });
-            
-            document.getElementById('testInterface').innerHTML = `
-                <div style="padding: 20px;">
-                    ${answersHTML}
-                    <div style="text-align: center; margin-top: 20px;">
-                        <button class="nav-button primary" onclick="location.reload()">
-                            🔄 重新测试
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // ========== 辅助函数 ==========
-        
-        // 更新状态显示
-        function updateStatus(message, type = 'info') {
-            const statusDiv = document.getElementById('status');
-            statusDiv.textContent = message;
-            statusDiv.className = 'status';
-            
-            if (type === 'error') {
-                statusDiv.classList.add('error');
-            } else if (type === 'success') {
-                statusDiv.classList.add('success');
+            // 如果不是高级用户，扣除测试次数
+            if (!isPremium) {
+                let remainingTests = parseInt(localStorage.getItem('ieltsCatRemainingTests') || '1');
+                remainingTests = Math.max(0, remainingTests - 1);
+                localStorage.setItem('ieltsCatRemainingTests', remainingTests.toString());
             }
             
-            console.log(`[${type.toUpperCase()}] ${message}`);
-        }
-        
-        // ========== 页面初始化 ==========
-        window.onload = function() {
-            console.log('✅ 页面加载完成');
-            updateStatus('✅ 页面加载完成，所有函数已定义，可以开始测试', 'success');
-            
-            // 确保按钮有事件监听
-            const startBtn = document.getElementById('startTestBtn');
-            startBtn.onclick = startTest;
-            
-            // 添加双击测试
-            startBtn.ondblclick = function() {
-                updateStatus('✅ 按钮双击测试成功！', 'success');
+            // 生成随机分数
+            const scores = {
+                listening: 5.5 + Math.random() * 2,
+                reading: 6.0 + Math.random() * 2,
+                writing: 5.0 + Math.random() * 2,
+                speaking: 5.5 + Math.random() * 2
             };
             
-            updateStatus('✅ 所有初始化完成，按钮已准备好', 'success');
-        };
+            const totalScore = (scores.listening + scores.reading + scores.writing + scores.speaking) / 4;
+            
+            // 显示结果
+            document.querySelector('.content').innerHTML = `
+                <div style="text-align: center; padding: 30px;">
+                    <h2 style="margin-bottom: 20px;">🎉 测试完成！</h2>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; padding: 30px; margin: 20px 0;">
+                        <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">${totalScore.toFixed(1)}</div>
+                        <div style="font-size: 1.2rem;">总体雅思分数</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 25px 0;">
+                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.listening.toFixed(1)}</div>
+                            <div style="color: #666;">听力</div>
+                        </div>
+                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.reading.toFixed(1)}</div>
+                            <div style="color: #666;">阅读</div>
+                        </div>
+                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.writing.toFixed(1)}</div>
+                            <div style="color: #666;">写作</div>
+                        </div>
+                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 15px;">
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${scores.speaking.toFixed(1)}</div>
+                            <div style="color: #666;">口语</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; border-radius: 10px; padding: 20px; margin: 20px 0; text-align: left;">
+                        <h3 style="margin-bottom: 15px;">📋 分析报告</h3>
+                        <p style="margin-bottom: 10px;">✅ <strong>优势：</strong>阅读能力较好，词汇量充足</p>
+                        <p style="margin-bottom: 10px;">⚠️ <strong>需改进：</strong>写作语法需要加强，口语流利度可提升</p>
+                        <p style="margin-bottom: 10px;">🎯 <strong>建议：</strong>每天练习写作15分钟，重点学习复杂句式</p>
+                        <p>📚 <strong>学习资源：</strong>访问<a href="../learn/" style="color: #667eea; text-decoration: none;">免费学习工具</a>加强词汇和发音</p>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
+                        <button class="btn btn-primary" onclick="location.reload()">返回测试主页</button>
+                        <button class="btn btn-secondary" onclick="window.location.href='../learn/'">前往免费学习</button>
+                    </div>
+                    
+                    ${!isPremium ? `
+                    <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 10px; padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0; color: #856404;">
+                            ⚠️ 今日剩余免费测试次数：${localStorage.getItem('ieltsCatRemainingTests') || '0'}次
+                            <br>
+                            <a href="#" onclick="upgradeToPremium(); return false;" style="color: #28a745; font-weight: bold;">升级到高级版享受无限测试</a>
+                        </p>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
         
-        // 添加全局错误处理
-        window.onerror = function(message, source, lineno, colno, error) {
-            const errorMsg = `JavaScript错误: ${message} (行 ${lineno})`;
-            console.error(errorMsg, error);
-            updateStatus(`❌ ${errorMsg}`, 'error');
-            return true;
-        };
+        // 取消测试
+        function cancelTest() {
+            if (confirm('确定要取消测试吗？取消后不会扣除测试次数。')) {
+                location.reload();
+            }
+        }
         
-        // 添加未捕获的Promise错误处理
-        window.addEventListener('unhandledrejection', function(event) {
-            console.error('未处理的Promise错误:', event.reason);
-            updateStatus(`❌ Promise错误: ${event.reason}`, 'error');
-        });
+        // 查看历史记录
+        function viewHistory() {
+            const historyList = document.getElementById('historyList');
+            const isPremium = localStorage.getItem('ieltsCatPremium') === 'true';
+            
+            if (historyList.style.display === 'none') {
+                historyList.style.display = 'block';
+                
+                if (isPremium) {
+                    // 高级用户显示完整历史
+                    historyList.innerHTML = `
+                        <div style="background: #f8f9fa; border-radius: 10px; padding: 15px;">
+                            <h4 style="margin-bottom: 10px;">📅 测试历史记录</h4>
+                            <p>2026-03-01: 总分6.5 (听力6.5, 阅读7.0, 写作6.0, 口语6.5)</p>
+                            <p>2026-02-28: 总分6.0 (听力6.0, 阅读6.5, 写作5.5, 口语6.0)</p>
+                            <p>2026-02-25: 总分5.5 (听力5.5, 阅读6.0, 写作5.0, 口语5.5)</p>
+                            <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">🎉 高级用户可查看完整历史记录</p>
+                        </div>
+                    `;
+                } else {
+                    // 免费用户只显示最近记录
+                    historyList.innerHTML = `
+                        <div style="background: #f8f9fa; border-radius: 10px; padding: 15px;">
+                            <h4 style="margin-bottom: 10px;">📅 最近测试记录</h4>
+                            <p>2026-03-01: 总分6.5 (听力6.5, 阅读7.0, 写作6.0, 口语6.5)</p>
+                            <div style="background: #fff3cd; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                                <p style="margin: 0; color: #856404; font-size: 0.9rem;">
+                                    ⚠️ 免费用户只能查看最近1次测试记录
+                                    <br>
+                                    <a href="#" onclick="upgradeToPremium(); return false;" style="color: #28a745; font-weight: bold;">升级到高级版查看完整历史</a>
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                historyList.style.display = 'none';
+            }
+        }
+        
+        // 升级到高级版
+        function upgradeToPremium() {
+            if (confirm('🎉 升级到高级版\n\n享受以下功能：\n• 无限次测试\n• 完整历史记录\n• 高级分析报告\n• 定制学习计划\n\n价格：¥25/月\n\n确定要升级吗？')) {
+                // 模拟支付成功
+                localStorage.setItem('ieltsCatPremium', 'true');
+                alert('🎊 升级成功！\n\n你现在是高级用户，享受所有高级功能！');
+                location.reload();
+            }
+        }
+        
+        // 页面加载时检查状态
+        window.onload = function() {
+            checkPremiumStatus();
+            
+            // 检查URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('upgrade') === 'success') {
+                upgradeToPremium();
+            }
+        };
     </script>
 </body>
 </html>
